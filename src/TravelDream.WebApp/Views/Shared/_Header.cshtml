@@ -1,0 +1,49 @@
+﻿@using TravelDream.Services.Utilities.Constants
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-bet fixed-top bet-nav">
+	<div class="container">
+		<a class="navbar-brand" asp-area="" asp-action="Index" asp-controller="Home">Travel Dream</a>
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				@if (this.User.IsInRole(GlobalConstants.ModeratorRoleText) || this.User.IsInRole(GlobalConstants.AdminRoleText))
+				{
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Moderation
+						</a>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+							<a class="dropdown-item" asp-area="Moderation" asp-action="Add" asp-controller="Competitions">Competition</a>
+							<a class="dropdown-item" asp-area="Moderation" asp-action="Add" asp-controller="Seasons">Season</a>
+							<a class="dropdown-item" asp-area="Administration" asp-action="Add" asp-controller="Sports">Sport</a>
+							<a class="dropdown-item" asp-area="Moderation" asp-action="AddTeam" asp-controller="Competitors">Team</a>
+							<a class="dropdown-item" asp-area="Moderation" asp-action="AddPlayer" asp-controller="Competitors">Player</a>
+						</div>
+					</li>
+				}
+				@if (this.User.Identity.IsAuthenticated)
+				{
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							@this.User.Identity.Name
+						</a>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+							<a class="dropdown-item" href="#">Profile</a>
+							<a class="dropdown-item" href="#">Sidebar Page</a>
+							<a class="dropdown-item" href="#">FAQ</a>
+							<a class="dropdown-item" href="#">404</a>
+							<a class="dropdown-item" asp-area="Administration" asp-action="Logout" asp-controller="Users">Logout</a>
+						</div>
+					</li>
+				}
+				else
+				{
+					<li class="nav-item">
+						<a class="nav-link" asp-area="Administration" asp-action="Login" asp-controller="Users">SignIn</a>
+					</li>
+				}
+			</ul>
+		</div>
+	</div>
+</nav>  
