@@ -1,7 +1,40 @@
-﻿
+﻿@model TravelDream.Services.ViewModels.UserModels.InputLoginViewModel
+@using Microsoft.AspNetCore.Identity
+@using TravelDream.Data.Common
+@using TravelDream.Services.Utilities.Constants
+
+@inject SignInManager<User> SignInManager
 @{
-    ViewData["Title"] = "Login";
+	ViewBag.Title = "Login";
+	Layout = "_Layout";
 }
 
-<h2>Login</h2>
-
+<main class="mt-5 w-50 mx-auto main bg-white">
+	<h1 class="text-center bg-bet p-2 top">Login</h1>
+	<form class="mx-auto text-center font-weight-bold" method="post" asp-area="@GlobalConstants.AdministrationAreaText" asp-action="Login" asp-controller="Users">
+		<div class="p-2">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group w-50 mx-auto">
+				<label asp-for="Username"></label>
+				<input asp-for="Username" class="form-control" placeholder="Username..." />
+				<span asp-validation-for="Username" class="text-danger"></span>
+			</div>
+			<div class="form-group w-50 mx-auto">
+				<label asp-for="Password"></label>
+				<input asp-for="Password" class="form-control" placeholder="Password..." />
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
+			<div class="form-group w-50 mx-auto row">
+				<label asp-for="RememberMe">
+					<input asp-for="RememberMe" type="checkbox"> Remember me
+				</label>
+			</div>
+			<div class="form-group mt-2 w-50 mx-auto">
+				<p>
+					<a asp-area="@GlobalConstants.AdministrationAreaText" asp-controller="Users" asp-action="Register">Don't have an account?</a>
+				</p>
+			</div>
+		</div>
+		<input type="submit" id="btn-login" class="bg-bet p-2 w-100 font-weight-bold" value="Sign In" />
+	</form>
+</main>

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-
-namespace TravelDream.WebApp.Controllers
+﻿namespace TravelDream.WebApp.Controllers
 {
+	using System.Net;
 	using Microsoft.AspNetCore.Diagnostics;
+	using Microsoft.AspNetCore.Mvc;
 	using Services.ViewModels;
 
 	public class ErrorsController : Controller
@@ -23,8 +19,8 @@ namespace TravelDream.WebApp.Controllers
 		}
 
 		public IActionResult Status(int status)
-		{
-			var errorModel = new ErrorViewModel {Name = "Not Found", RequestId = "404", ShowRequestId = true};
+		{			
+			var errorModel = new ErrorViewModel {Name = HttpStatusCode.NotFound.ToString(), RequestId =$"Status {status}" , ShowRequestId = true};
 			return this.View(errorModel);
 		}
 	}

@@ -6,18 +6,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.6" PrivateAssets="All" />
+    <PackageReference Include="Telerik.UI.for.AspNet.Core.Trial" Version="2018.3.911" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TravelDream.Data\TravelDream.Data.csproj" />
+    <ProjectReference Include="..\TravelDream.Services.DataServices\TravelDream.Services.DataServices.csproj" />
     <ProjectReference Include="..\TravelDream.Services.ViewModels\TravelDream.Services.ViewModels.csproj" />
     <ProjectReference Include="..\Utilities\TravelDream.Services.Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\Administration\Views\Users\Login.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Administration\Views\Users\Register.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Administration\Views\_ViewImports.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -33,11 +43,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Moderation\Views\Locations\" />
-    <Folder Include="Areas\Moderation\Views\Tickets\" />
     <Folder Include="Areas\Moderation\Views\Trips\" />
     <Folder Include="Areas\Moderation\Views\Transports\" />
-    <Folder Include="Views\Errors\" />
   </ItemGroup>
 
 </Project>

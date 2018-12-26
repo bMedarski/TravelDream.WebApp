@@ -1,5 +1,6 @@
 ﻿namespace TravelDream.WebApp
 {
+	using AutoMapper;
 	using Data;
 	using Data.Common;
 	using Extensions;
@@ -13,6 +14,9 @@
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.DependencyInjection;
 	using Newtonsoft.Json.Serialization;
+	using Services.DataServices;
+	using Services.DataServices.Contracts;
+	using Services.ViewModels.UserModels;
 
 	public class Startup
 	{
@@ -60,14 +64,19 @@
 				.AddJsonOptions(options =>
 					options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
-
+			services.AddKendo();
 			services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+			services.AddScoped<IUsersService,UsersService>();
 
 			services.ConfigureApplicationCookie(options =>
 			{
 				options.LoginPath = $"/Administration/Users/Login";
 				options.LogoutPath = $"/Administration/Users/Logout";
 				options.AccessDeniedPath = $"/Administration/Users/AccessDenied";
+			});
+			services.AddAutoMapper(config =>
+			{
+				config.CreateMap<InputRegisterViewModel, User>();
 			});
 		}
 

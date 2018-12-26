@@ -1,7 +1,41 @@
-﻿
+﻿@using TravelDream.Services.Utilities.Constants
+@model TravelDream.Services.ViewModels.UserModels.InputRegisterViewModel
 @{
-    ViewData["Title"] = "Register";
+	ViewBag.Title = "Register";
+	Layout = "_Layout";
 }
 
-<h2>Register</h2>
-
+<main class="mt-5 w-50 mx-auto main bg-white">
+	<h1 class="text-center bg-bet p-2 top">Register</h1>
+	<form class="text-center font-weight-bold" method="post" asp-area="@GlobalConstants.AdministrationAreaText" asp-action="Register" asp-controller="Users">
+		<div class="p-2">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group w-50 mx-auto">
+				<label asp-for="Username"></label>
+				<input asp-for="Username" class="form-control" placeholder="Username..." />
+				<span asp-validation-for="Username" class="text-danger"></span>
+			</div>
+			<div class="form-group w-50 mx-auto">
+				<label asp-for="Email"></label>
+				<input asp-for="Email" class="form-control" placeholder="Email..." />
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+			<div class="form-group w-50 mx-auto">
+				<label asp-for="Password"></label>
+				<input asp-for="Password" class="form-control" placeholder="Password..." />
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
+			<div class="form-group w-50 mx-auto">
+				<label asp-for="ConfirmPassword"></label>
+				<input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password..." />
+				<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+			</div>
+			<div class="form-group w-50 mx-auto row">
+				<label asp-for="RememberMe">
+					<input asp-for="RememberMe" type="checkbox"> Remember me
+				</label>
+			</div>
+		</div>
+		<input type="submit" id="btn-login" class="bg-bet p-2 w-100 font-weight-bold" value="Sign In" />
+	</form>
+</main>

@@ -14,11 +14,11 @@
 							Moderation
 						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-							<a class="dropdown-item" asp-area="Moderation" asp-action="Add" asp-controller="Competitions">Competition</a>
-							<a class="dropdown-item" asp-area="Moderation" asp-action="Add" asp-controller="Seasons">Season</a>
+							<a class="dropdown-item" asp-area="@GlobalConstants.ModerationAreaText" asp-action="Create" asp-controller="Locations">Location</a>
+							@*<a class="dropdown-item" asp-area="Moderation" asp-action="Add" asp-controller="Seasons">Season</a>
 							<a class="dropdown-item" asp-area="Administration" asp-action="Add" asp-controller="Sports">Sport</a>
 							<a class="dropdown-item" asp-area="Moderation" asp-action="AddTeam" asp-controller="Competitors">Team</a>
-							<a class="dropdown-item" asp-area="Moderation" asp-action="AddPlayer" asp-controller="Competitors">Player</a>
+							<a class="dropdown-item" asp-area="Moderation" asp-action="AddPlayer" asp-controller="Competitors">Player</a>*@
 						</div>
 					</li>
 				}
@@ -33,14 +33,14 @@
 							<a class="dropdown-item" href="#">Sidebar Page</a>
 							<a class="dropdown-item" href="#">FAQ</a>
 							<a class="dropdown-item" href="#">404</a>
-							<a class="dropdown-item" asp-area="Administration" asp-action="Logout" asp-controller="Users">Logout</a>
+							<a class="dropdown-item" asp-area="@GlobalConstants.AdministrationAreaText" asp-action="Logout" asp-controller="Users">Logout</a>
 						</div>
 					</li>
 				}
 				else
 				{
 					<li class="nav-item">
-						<a class="nav-link" asp-area="Administration" asp-action="Login" asp-controller="Users">SignIn</a>
+						<a class="nav-link" asp-area="@GlobalConstants.AdministrationAreaText" asp-action="Login" asp-controller="Users">Login</a>
 					</li>
 				}
 			</ul>
