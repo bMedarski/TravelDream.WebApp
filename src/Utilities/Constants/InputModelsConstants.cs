@@ -23,20 +23,16 @@
 		public const int PasswordMinimumLength = 5;
 		public const string PasswordLengthErrorMessage = "Length must be more then 5";
 
-		public const int CompetitionNameMinimumLength = 3;
-		public const string CompetitionNameLengthErrorMessage = "Length must be more then 3";
+		public const string ChildDiscountText = "Child";
+		public const decimal ChildDiscountPercent = (decimal) 0.8;
 
-		public const int SeasonNameMinimumLength = 3;
-		public const string SeasonNameLengthErrorMessage = "Length must be more then 3";
+		public const string SeniorDiscountText = "Senior";
+		public const decimal SeniorDiscountPercent = (decimal) 0.9;
 
-		public const int TeamNameMinimumLength = 3;
-		public const string TeamNameLengthErrorMessage = "Length must be more then 3";
-		public const string TeamUrlDisplayName = "Team Logo URL";
+		public const string StudentDiscountText = "Student";
+		public const decimal StudentDiscountPercent = (decimal) 0.7;
 
-		public const int PlayerFirstNameMinimumLength = 3;
-		public const string PlayerFirstNameLengthErrorMessage = "Length must be more then 3";
-		public const int PlayerSecondNameMinimumLength = 5;
-		public const string PlayerSecondNameLengthErrorMessage = "Length must be more then 5";
-		public const string PlayerUrlDisplayName = "Player Picture URL";
+		public const string NormalDiscountText = "Normal";
+		public const decimal NormalDiscountPercent = (decimal) 1;
 	}
 }

@@ -67,6 +67,7 @@
 			services.AddKendo();
 			services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
 			services.AddScoped<IUsersService,UsersService>();
+			services.AddScoped<IDiscountsService,DiscountsService>();
 
 			services.ConfigureApplicationCookie(options =>
 			{

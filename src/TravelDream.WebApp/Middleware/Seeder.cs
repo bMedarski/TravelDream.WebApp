@@ -3,9 +3,12 @@
 	using System.Threading.Tasks;
 	using Data;
 	using Data.Common;
+	using Data.Models;
 	using Microsoft.AspNetCore.Http;
 	using Microsoft.AspNetCore.Identity;
+	using Services.DataServices.Contracts;
 	using Services.Utilities.Constants;
+	using Services.ViewModels.DiscountModels;
 
 	public class Seeder
 	{
@@ -17,11 +20,12 @@
 		{
 			this._next = next;
 		}
-		public async Task InvokeAsync(HttpContext httpContext, TravelDreamDbContext dbContext,RoleManager<IdentityRole> roleManager,UserManager<User> userManager)
+		public async Task InvokeAsync(HttpContext httpContext, TravelDreamDbContext dbContext,RoleManager<IdentityRole> roleManager,UserManager<User> userManager,IDiscountsService discountsService)
 		{
 			this._roleManager = roleManager;
 			this._userManager = userManager;
 			this.SeedRoles(roleManager,userManager);
+			this.SeedDiscounts(discountsService);
 			await this.SeedAdmin(roleManager, userManager);
 			await this._next(httpContext);
 		}
@@ -66,6 +70,36 @@
 			}
 
 			return null;
+		}		
+		public void SeedDiscounts(IDiscountsService discountsService)
+		{
+			if (discountsService.All().Count==0)
+			{
+				var child = new InputDiscountViewModel
+				{
+					Name = InputModelsConstants.ChildDiscountText,
+					Percent = InputModelsConstants.ChildDiscountPercent
+				};
+				var senior = new InputDiscountViewModel
+				{
+					Name = InputModelsConstants.SeniorDiscountText,
+					Percent = InputModelsConstants.SeniorDiscountPercent
+				};
+				var student = new InputDiscountViewModel
+				{
+					Name = InputModelsConstants.StudentDiscountText,
+					Percent = InputModelsConstants.StudentDiscountPercent
+				};
+				var normal = new InputDiscountViewModel
+				{
+					Name = InputModelsConstants.NormalDiscountText,
+					Percent = InputModelsConstants.NormalDiscountPercent
+				};
+				discountsService.Add(child);
+				discountsService.Add(senior);
+				discountsService.Add(student);
+				discountsService.Add(normal);
+			}
 		}
 	}
 }
