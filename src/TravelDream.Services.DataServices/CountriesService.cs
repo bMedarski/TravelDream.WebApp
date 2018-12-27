@@ -30,5 +30,21 @@
 			await this._countryRepository.SaveChangesAsync();
 			return country.Id;
 		}
+
+		public IQueryable<CountryViewModel> GetAll()
+		{
+			var countries = this._countryRepository.All().Select(s => new CountryViewModel
+			{
+				Id = s.Id,
+				Name = s.Name
+			});
+			return countries;
+		}
+
+		public Country GetById(int id)
+		{
+			var country = this._countryRepository.All().FirstOrDefault(s => s.Id == id);
+			return country;
+		}
 	}
 }

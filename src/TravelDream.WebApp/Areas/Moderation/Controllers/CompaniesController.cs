@@ -3,7 +3,10 @@
 namespace TravelDream.WebApp.Areas.Moderation.Controllers
 {
 	using Services.DataServices.Contracts;
+	using Services.Utilities.Constants;
+	using Services.ViewModels.CompanyModels;
 
+	[Area(GlobalConstants.ModerationAreaText)]
 	public class CompaniesController : Controller
     {
 	    private readonly ICompaniesService _companiesService;
@@ -17,5 +20,18 @@ namespace TravelDream.WebApp.Areas.Moderation.Controllers
         {
             return this.View();
         }
+
+		[HttpPost]
+	    public IActionResult Add(InputCompanyViewModel model)
+	    {
+		    if (!this.ModelState.IsValid)
+		    {
+			    return this.View(model);
+		    }
+
+		    var companyId = this._companiesService.Add(model);
+
+		    return this.RedirectToAction("Add", "Companies", new {area = @GlobalConstants.ModerationAreaText});
+	    }
     }
 }

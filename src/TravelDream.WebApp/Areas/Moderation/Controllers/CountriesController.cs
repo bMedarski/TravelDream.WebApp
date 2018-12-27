@@ -1,5 +1,6 @@
 ﻿namespace TravelDream.WebApp.Areas.Moderation.Controllers
 {
+	using System.Linq;
 	using Microsoft.AspNetCore.Mvc;
 	using Services.DataServices.Contracts;
 	using Services.Utilities.Constants;
@@ -26,6 +27,7 @@
         {
             return this.View();
         }
+
 		[HttpPost]
 	    public IActionResult Add(InputCountryViewModel model)
 	    {
@@ -35,6 +37,13 @@
 		    }
 		    var countryId = this._countriesService.Add(model);
 		    return this.RedirectToAction("Add", "Countries", new { area = @GlobalConstants.ModerationAreaText });
+	    }
+
+	    [HttpGet]
+	    public JsonResult GetAll()
+	    {
+		    var countries = this._countriesService.GetAll().ToList();
+		    return this.Json(countries);
 	    }
     }
 }

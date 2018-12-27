@@ -13,6 +13,6 @@
 
 		public int PhoneNumber { get; set; }
 
-		public Country Country { get; set; }
+		public int CountryId { get; set; }
 	}
 }

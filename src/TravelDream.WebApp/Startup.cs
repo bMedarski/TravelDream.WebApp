@@ -4,7 +4,6 @@
 	using Data;
 	using Data.Common;
 	using Extensions;
-	using Filters;
 	using Microsoft.AspNetCore.Builder;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Hosting;
@@ -13,7 +12,6 @@
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.DependencyInjection;
-	using Newtonsoft.Json.Serialization;
 	using Services.DataServices;
 	using Services.DataServices.Contracts;
 	using Services.ViewModels.UserModels;
