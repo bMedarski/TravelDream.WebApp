@@ -54,20 +54,29 @@
 				.AddDefaultTokenProviders()
 				.AddEntityFrameworkStores<TravelDreamDbContext>();
 
-			services.AddMvc(
-					options =>
-					{
-						options.Filters.Add(typeof(ValidateModelStateAttribute));
-					}
-				)
-				.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-				.AddJsonOptions(options =>
-					options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+			//services.AddMvc(
+			//		options =>
+			//		{
+			//			options.Filters.Add(typeof(ValidateModelStateAttribute));
+			//		}
+			//	)
+			//	.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+			//	.AddJsonOptions(options =>
+			//		options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddKendo();
 			services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
 			services.AddScoped<IUsersService,UsersService>();
 			services.AddScoped<IDiscountsService,DiscountsService>();
+			services.AddScoped<ICompaniesService,CompaniesService>();
+			services.AddScoped<ICountriesService,CountriesService>();
+			services.AddScoped<ITransportsService,TransportsService>();
+			services.AddScoped<ITicketsService,TicketsService>();
+			services.AddScoped<ISeatsService,SeatsService>();
+			services.AddScoped<ITripsService,TripsService>();
+			services.AddScoped<ILocationsService,LocationsService>();
 
 			services.ConfigureApplicationCookie(options =>
 			{
@@ -88,13 +97,13 @@
 		{
 			if (env.IsDevelopment())
 			{
-				app.UseStatusCodePagesWithReExecute("/Errors/Status/{0}");
-				//app.UseDeveloperExceptionPage();
+				//app.UseStatusCodePagesWithReExecute("/Errors/Status/{0}");
+				app.UseDeveloperExceptionPage();
 				app.UseDatabaseErrorPage();
 			}
 			else
 			{
-				app.UseStatusCodePagesWithReExecute("/Errors/Status/{0}");
+				//app.UseStatusCodePagesWithReExecute("/Errors/Status/{0}");
 				app.UseHsts();
 			}
 			app.UseSeeder();
