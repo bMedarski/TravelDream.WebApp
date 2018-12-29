@@ -2,6 +2,7 @@
 
 namespace TravelDream.WebApp.Areas.Moderation.Controllers
 {
+	using System.Linq;
 	using Services.DataServices.Contracts;
 	using Services.Utilities.Constants;
 	using Services.ViewModels.CompanyModels;
@@ -32,6 +33,12 @@ namespace TravelDream.WebApp.Areas.Moderation.Controllers
 		    var companyId = this._companiesService.Add(model);
 
 		    return this.RedirectToAction("Add", "Companies", new {area = @GlobalConstants.ModerationAreaText});
+	    }
+	    [HttpGet]
+	    public JsonResult GetAll()
+	    {
+		    var companies = this._companiesService.GetAll().ToList();
+		    return this.Json(companies);
 	    }
     }
 }

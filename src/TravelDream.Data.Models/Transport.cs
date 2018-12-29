@@ -13,6 +13,8 @@
 		public ICollection<Seat> Seats { get; set; }
 		public TransportType TransportType { get; set; }
 		public Company Company { get; set; }
-		public int SeatsAvailable { get; set; }
+		public ICollection<Seat> SeatsTaken { get; set; }
+		public int LastSeatNumber { get; set; }
+		public int DesignationNumber { get; set; }
 	}
 }

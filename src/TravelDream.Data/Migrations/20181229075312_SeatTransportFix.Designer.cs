@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelDream.Data;
 
 namespace TravelDream.Data.Migrations
 {
     [DbContext(typeof(TravelDreamDbContext))]
-    partial class TravelDreamDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181229075312_SeatTransportFix")]
+    partial class SeatTransportFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -260,15 +262,11 @@ namespace TravelDream.Data.Migrations
 
                     b.Property<int?>("TransportId");
 
-                    b.Property<int?>("TransportId1");
-
                     b.Property<int>("Type");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TransportId");
-
-                    b.HasIndex("TransportId1");
 
                     b.ToTable("Seats");
                 });
@@ -304,9 +302,9 @@ namespace TravelDream.Data.Migrations
 
                     b.Property<int?>("CompanyId");
 
-                    b.Property<int>("DesignationNumber");
-
                     b.Property<int>("LastSeatNumber");
+
+                    b.Property<int>("SeatsAvailable");
 
                     b.Property<int>("TransportType");
 
@@ -381,10 +379,6 @@ namespace TravelDream.Data.Migrations
                     b.HasOne("TravelDream.Data.Models.Transport")
                         .WithMany("Seats")
                         .HasForeignKey("TransportId");
-
-                    b.HasOne("TravelDream.Data.Models.Transport")
-                        .WithMany("SeatsTaken")
-                        .HasForeignKey("TransportId1");
                 });
 
             modelBuilder.Entity("TravelDream.Data.Models.Ticket", b =>

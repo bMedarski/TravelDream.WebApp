@@ -44,7 +44,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Moderation\Views\Trips\" />
-    <Folder Include="Areas\Moderation\Views\Transports\" />
   </ItemGroup>
 
 </Project>
