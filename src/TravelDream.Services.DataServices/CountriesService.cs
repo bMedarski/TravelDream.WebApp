@@ -36,7 +36,7 @@
 			var countries = this._countryRepository.All().Select(s => new CountryViewModel
 			{
 				Id = s.Id,
-				Name = s.Name
+				Name = s.Name,
 			});
 			return countries;
 		}

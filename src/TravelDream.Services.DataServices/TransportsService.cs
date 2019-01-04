@@ -5,6 +5,7 @@
 	using Contracts;
 	using Data.Common;
 	using Data.Models;
+	using Microsoft.EntityFrameworkCore;
 	using ViewModels.TransportModels;
 
 	public class TransportsService : ITransportsService
@@ -36,7 +37,13 @@
 
 		public IQueryable<TransportViewModel> GetAll()
 		{
-			throw new System.NotImplementedException();
+			var transports = this._transportRepository.All().Include(t=>t.Company).Select(s => new TransportViewModel()
+			{
+				Id = s.Id,
+				DesignationNumber = s.DesignationNumber,
+				CompanyName = s.Company.Name
+			});
+			return transports;
 		}
 
 		public Transport GetById(int id)

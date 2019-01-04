@@ -32,7 +32,7 @@
 
 		    var transport = this._transportsService.Add(model);
 
-		    return this.View();
+		    return this.RedirectToAction("Add", "Transports", new {area = @GlobalConstants.ModerationAreaText});
 	    }
 
 	    [HttpGet]

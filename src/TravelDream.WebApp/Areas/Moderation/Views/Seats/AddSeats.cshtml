@@ -13,13 +13,18 @@
 		<div class="p-2">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group w-50 mx-auto">
+				<label asp-for="SeatCount"></label>
+				<input asp-for="SeatCount" class="form-control" placeholder="Seats Count..." />
+				<span asp-validation-for="SeatCount" class="text-danger"></span>
+			</div>
+			<div class="form-group w-50 mx-auto">
 				<label asp-for="Price"></label>
 				<input asp-for="Price" class="form-control" placeholder="Price..." />
 				<span asp-validation-for="Price" class="text-danger"></span>
 			</div>
 			<div class="form-group w-50 mx-auto">
 				<label asp-for="SeatType"></label>
-				<select asp-for="SeatType" asp-items="Html.GetEnumSelectList<SeatType>()">
+				<select asp-for="SeatType" class="form-control" asp-items="Html.GetEnumSelectList<SeatType>()">
 					<option selected="selected" value="">Please select</option>
 				</select>
 				<span asp-validation-for="SeatType" class="text-danger"></span>
@@ -45,7 +50,8 @@
 				success: function(sports) {
 					$.each(sports,
 						function(index, value) {
-							$('#transportsMenu').append('<option value="' + value.id + '">' + value.name + '</option>');
+							console.log(value)
+							$('#transportsMenu').append('<option value="' + value.id + '">' + value.designationNumber + '-' + value.companyName + '</option>');
 						});
 				}
 			});

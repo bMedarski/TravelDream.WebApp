@@ -1,6 +1,7 @@
 ﻿namespace TravelDream.Data
 {
 	using System;
+	using System.Collections.Generic;
 	using System.Linq;
 	using System.Threading.Tasks;
 	using Common;
@@ -21,6 +22,11 @@
 		public Task AddAsync(TEntity entity)
 		{
 			return this._dbSet.AddAsync(entity);
+		}
+
+		public Task AddRangeAsync(IList<TEntity> entities)
+		{
+			return this._dbSet.AddRangeAsync(entities);
 		}
 
 		public IQueryable<TEntity> All()

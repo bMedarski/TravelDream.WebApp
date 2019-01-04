@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 
 namespace TravelDream.Data.Common
 {
+	using System.Collections.Generic;
+
 	public interface IRepository<TEntity>
 		where TEntity : class
 	{
@@ -10,8 +12,11 @@ namespace TravelDream.Data.Common
 
 		Task AddAsync(TEntity entity);
 
+		Task AddRangeAsync(IList<TEntity> entities);
+
 		void Delete(TEntity entity);
 
 		Task<int> SaveChangesAsync();
+
 	}
 }

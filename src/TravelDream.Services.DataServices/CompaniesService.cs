@@ -39,12 +39,12 @@
 		}
 		public IQueryable<CompanyViewModel> GetAll()
 		{
-			var countries = this._companiesRepository.All().Select(s => new CompanyViewModel
+			var companies = this._companiesRepository.All().Select(s => new CompanyViewModel
 			{
 				Id = s.Id,
 				Name = s.Name
 			});
-			return countries;
+			return companies;
 		}
 
 		public Company GetById(int id)
