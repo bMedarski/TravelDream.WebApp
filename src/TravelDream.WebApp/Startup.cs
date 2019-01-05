@@ -9,6 +9,7 @@
 	using Microsoft.AspNetCore.Hosting;
 	using Microsoft.AspNetCore.Http;
 	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.Mvc.ViewFeatures;
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.DependencyInjection;
@@ -61,9 +62,9 @@
 			//	.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
 			//	.AddJsonOptions(options =>
 			//		options.SerializerSettings.ContractResolver = new DefaultContractResolver());
-
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddSessionStateTempDataProvider();
+			services.AddSession();
+			services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 			services.AddKendo();
 			services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
 			services.AddScoped<IUsersService,UsersService>();
@@ -110,7 +111,7 @@
 			app.UseCookiePolicy();
 
 			app.UseAuthentication();
-
+			app.UseSession();
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(

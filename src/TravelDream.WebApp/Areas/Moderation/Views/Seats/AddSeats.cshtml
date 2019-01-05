@@ -6,7 +6,7 @@
 	ViewBag.Title = "Add Seats";
 	Layout = "_Layout";
 }
-
+<success Message="@TempData["Message"]"></success>
 <main class="mt-5 w-50 mx-auto main bg-white">
 	<h1 class="text-center bg-bet p-2 top">Add Seats to Transport</h1>
 	<form class="text-center font-weight-bold" method="post" asp-area="@GlobalConstants.ModerationAreaText" asp-action="AddSeats" asp-controller="Seats">
@@ -32,7 +32,7 @@
 			<div class="form-group  mx-auto w-50">
 				<label asp-for="TransportId"></label>
 				<select asp-for="TransportId" class="form-control" id="transportsMenu">
-					<option selected="selected" disabled>Select country</option>
+					<option selected="selected" disabled>Select transport</option>
 				</select>
 			</div>
 		</div>

@@ -27,8 +27,8 @@
 				Name = model.Name,
 			};
 			await this._countryRepository.AddAsync(country);
-			await this._countryRepository.SaveChangesAsync();
-			return country.Id;
+			var result = await this._countryRepository.SaveChangesAsync();
+			return result;
 		}
 
 		public IQueryable<CountryViewModel> GetAll()

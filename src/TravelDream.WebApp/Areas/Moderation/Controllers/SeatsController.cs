@@ -1,6 +1,8 @@
 ﻿namespace TravelDream.WebApp.Areas.Moderation.Controllers
 {
+	using System.Net;
 	using System.Threading.Tasks;
+	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 	using Services.DataServices.Contracts;
 	using Services.Utilities.Constants;
@@ -8,6 +10,7 @@
 	using WebApp.Controllers;
 
 	[Area(GlobalConstants.ModerationAreaText)]
+	[Authorize(Roles = GlobalConstants.AdministrationModerationAreaText)]
 	public class SeatsController:BaseController
 	{
 		private readonly ISeatsService _seatsService;
@@ -24,10 +27,16 @@
 		[HttpPost]
 		public async Task<IActionResult> AddSeats(AddSeatsInputViewModel model)
 		{
+			if (!this.ModelState.IsValid)
+			{
+				return this.View(model);
 
+			}
 			var result = await this._seatsService.AddSeats(model);
 
-			return this.RedirectToAction("AddSeats", "Seats", new {area = @GlobalConstants.ModerationAreaText});
+			//TODO da se iznesat v konstanti
+			this.TempData["Message"] = model.SeatCount + " seats were added successfully";
+			return this.Redirect("AddSeats");
 		}
 	}
 }

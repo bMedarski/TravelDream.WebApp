@@ -3,11 +3,14 @@
 namespace TravelDream.WebApp.Areas.Moderation.Controllers
 {
 	using System.Linq;
+	using System.Threading.Tasks;
+	using Microsoft.AspNetCore.Authorization;
 	using Services.DataServices.Contracts;
 	using Services.Utilities.Constants;
 	using Services.ViewModels.CompanyModels;
 
 	[Area(GlobalConstants.ModerationAreaText)]
+	[Authorize(Roles = GlobalConstants.AdministrationModerationAreaText)]
 	public class CompaniesController : Controller
     {
 	    private readonly ICompaniesService _companiesService;
@@ -23,16 +26,16 @@ namespace TravelDream.WebApp.Areas.Moderation.Controllers
         }
 
 		[HttpPost]
-	    public IActionResult Add(InputCompanyViewModel model)
+	    public async Task<IActionResult> Add(InputCompanyViewModel model)
 	    {
 		    if (!this.ModelState.IsValid)
 		    {
 			    return this.View(model);
 		    }
+		    var companyId = await this._companiesService.Add(model);
 
-		    var companyId = this._companiesService.Add(model);
-
-		    return this.RedirectToAction("Add", "Companies", new {area = @GlobalConstants.ModerationAreaText});
+		    this.TempData["Message"] = "Company was added successfully";
+		    return this.Redirect("Add");
 	    }
 	    [HttpGet]
 	    public JsonResult GetAll()

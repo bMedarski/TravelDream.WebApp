@@ -1,6 +1,8 @@
 ﻿namespace TravelDream.WebApp.Areas.Moderation.Controllers
 {
 	using System.Linq;
+	using System.Threading.Tasks;
+	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 	using Services.DataServices.Contracts;
 	using Services.Utilities.Constants;
@@ -8,6 +10,7 @@
 	using WebApp.Controllers;
 
 	[Area(GlobalConstants.ModerationAreaText)]
+	[Authorize(Roles = GlobalConstants.AdministrationModerationAreaText)]
 	public class CountriesController : BaseController
     {
 	    private readonly ICountriesService _countriesService;
@@ -29,14 +32,16 @@
         }
 
 		[HttpPost]
-	    public IActionResult Add(InputCountryViewModel model)
+	    public async Task<IActionResult> Add(InputCountryViewModel model)
 	    {
 		    if (!this.ModelState.IsValid)
 		    {
 			    return this.View(model);
 		    }
-		    var countryId = this._countriesService.Add(model);
-		    return this.RedirectToAction("Add", "Countries", new { area = @GlobalConstants.ModerationAreaText });
+		    var result = await this._countriesService.Add(model);
+
+		    this.TempData["Message"] = "Country was added successfully";
+		    return this.Redirect("Add");
 	    }
 
 	    [HttpGet]

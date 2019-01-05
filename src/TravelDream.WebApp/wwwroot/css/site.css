@@ -139,3 +139,9 @@ a {
 	margin: 0;
 	padding: 0;
 }
+.success {
+	margin-top: 2Rem;
+	text-align: center;
+	padding: 1Rem;
+	background-color: palegreen;
+}

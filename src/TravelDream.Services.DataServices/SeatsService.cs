@@ -39,6 +39,7 @@
 			
 			await this._seatsRepository.AddRangeAsync(seats);
 			await this._seatsRepository.SaveChangesAsync();
+			//TODO return
 			return 0;
 		}
 	}
