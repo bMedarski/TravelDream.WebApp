@@ -19,5 +19,6 @@
 		public DbSet<Seat> Seats { get; set; }
 		public DbSet<Discount> Discounts { get; set; }
 		public DbSet<Country> Countries { get; set; }
+		public DbSet<Trip> Trips { get; set; }
 	}
 }

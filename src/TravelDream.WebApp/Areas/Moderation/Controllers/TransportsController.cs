@@ -34,7 +34,7 @@
 		    }
 		    var transport = await this._transportsService.Add(model);
 
-		    this.TempData["Message"] = "Transport was added successfully";
+		    this.TempData[GlobalConstants.SuccessMessageKey] = "Transport was added successfully";
 		    return this.Redirect("Add");
 	    }
 
@@ -42,6 +42,13 @@
 	    public JsonResult GetAll()
 	    {
 		    var transports = this._transportsService.GetAll().ToList();
+		    return this.Json(transports);
+	    }
+
+	    [HttpPost]
+	    public JsonResult GetAllByType(int transportType)
+	    {
+		    var transports = this._transportsService.GetAllByType(transportType).ToList();
 		    return this.Json(transports);
 	    }
     }

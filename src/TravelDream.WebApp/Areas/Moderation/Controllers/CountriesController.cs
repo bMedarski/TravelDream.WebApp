@@ -40,7 +40,7 @@
 		    }
 		    var result = await this._countriesService.Add(model);
 
-		    this.TempData["Message"] = "Country was added successfully";
+		    this.TempData[GlobalConstants.SuccessMessageKey] = "Country was added successfully";
 		    return this.Redirect("Add");
 	    }
 

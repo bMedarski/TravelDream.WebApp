@@ -15,6 +15,6 @@
 		public Company Company { get; set; }
 		public ICollection<Seat> SeatsTaken { get; set; }
 		public int LastSeatNumber { get; set; }
-		public int DesignationNumber { get; set; }
+		public string DesignationNumber { get; set; }
 	}
 }

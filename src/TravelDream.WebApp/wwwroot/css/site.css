@@ -1,13 +1,14 @@
 ﻿
 body {
     padding-top: 50px;
-    padding-bottom: 20px;
 	line-height: 1.0;
 	background-image: url(../images/site-background.jpg)
 }
-
-
-
+.body-content {
+	margin-bottom: 2Rem;
+	position:relative;
+	padding-bottom: 1Rem;
+}
 .bet-nav {
 	opacity: 0.85;
 	border-bottom-color: #6c757d;
@@ -16,13 +17,18 @@ body {
 }
 
 .footer {
+	margin-top: 2Rem;
 	opacity: 0.85;
 	border-top-color: #6c757d;
 	border-top-color: rgba(108, 117, 125, 0.85);
 	border-top: solid 3px;
 	position: fixed;
 	bottom: 0;
+	left: 0;
 	width: 100%;
+	clear: both;
+	z-index:10;
+	padding: 1Rem;
 }
 .take-all-space-you-can{
 	width:100%;
@@ -95,15 +101,6 @@ a {
 .media-photo {
 	width: 2rem;
 	height: 2rem;
-}
-.contestant {
-	margin-left: 1rem;
-	margin-right: 1rem;
-	height: 100%;
-}
-.match {
-	margin-right: 0.5rem;
-	margin-left: 0.5rem;
 }
 #nav-incoming {
 	padding: 0;

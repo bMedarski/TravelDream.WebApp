@@ -6,6 +6,6 @@
 	{
 		public TransportType TransportType { get; set; }
 		public int CompanyId { get; set; }
-		public int Number { get; set; }
+		public string Number { get; set; }
 	}
 }

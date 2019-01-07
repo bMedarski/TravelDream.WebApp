@@ -10,5 +10,6 @@
 		Task<int> Add(InputTransportViewModel model);
 		IQueryable<TransportViewModel> GetAll();
 		Transport GetById(int id);
+		IQueryable<TransportViewModel> GetAllByType(int transportType);
 	}
 }

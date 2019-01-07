@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TravelDream.Data.Common\TravelDream.Data.Common.csproj" />
+    <ProjectReference Include="..\Utilities\TravelDream.Services.Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

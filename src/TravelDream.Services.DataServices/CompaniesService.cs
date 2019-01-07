@@ -46,7 +46,6 @@
 			});
 			return companies;
 		}
-
 		public Company GetById(int id)
 		{
 			var company = this._companiesRepository.All().FirstOrDefault(s => s.Id == id);

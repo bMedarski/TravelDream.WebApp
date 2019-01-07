@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelDream.Data;
 
 namespace TravelDream.Data.Migrations
 {
     [DbContext(typeof(TravelDreamDbContext))]
-    partial class TravelDreamDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190107104154_change_designation_number")]
+    partial class change_designation_number
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -323,33 +325,6 @@ namespace TravelDream.Data.Migrations
                     b.ToTable("Transports");
                 });
 
-            modelBuilder.Entity("TravelDream.Data.Models.Trip", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("ArrivalTime");
-
-                    b.Property<int?>("DepartureId");
-
-                    b.Property<DateTime>("DepartureTime");
-
-                    b.Property<int?>("DestinationId");
-
-                    b.Property<int?>("TransportId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartureId");
-
-                    b.HasIndex("DestinationId");
-
-                    b.HasIndex("TransportId");
-
-                    b.ToTable("Trips");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -440,21 +415,6 @@ namespace TravelDream.Data.Migrations
                     b.HasOne("TravelDream.Data.Models.Company", "Company")
                         .WithMany("Transports")
                         .HasForeignKey("CompanyId");
-                });
-
-            modelBuilder.Entity("TravelDream.Data.Models.Trip", b =>
-                {
-                    b.HasOne("TravelDream.Data.Models.Location", "Departure")
-                        .WithMany()
-                        .HasForeignKey("DepartureId");
-
-                    b.HasOne("TravelDream.Data.Models.Location", "Destination")
-                        .WithMany()
-                        .HasForeignKey("DestinationId");
-
-                    b.HasOne("TravelDream.Data.Models.Transport", "Transport")
-                        .WithMany()
-                        .HasForeignKey("TransportId");
                 });
 #pragma warning restore 612, 618
         }

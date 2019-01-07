@@ -10,5 +10,8 @@
 		public const string AdministrationAreaText = "Administration";
 		public const string ModerationAreaText = "Moderation";
 		public const string AdministrationModerationAreaText = "Admin,Moderator";
+
+
+		public const string SuccessMessageKey = "Success";
 	}
 }

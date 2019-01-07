@@ -35,7 +35,7 @@
 			var result = await this._seatsService.AddSeats(model);
 
 			//TODO da se iznesat v konstanti
-			this.TempData["Message"] = model.SeatCount + " seats were added successfully";
+			this.TempData[GlobalConstants.SuccessMessageKey] = model.SeatCount + " seats were added successfully";
 			return this.Redirect("AddSeats");
 		}
 	}

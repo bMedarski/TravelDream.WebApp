@@ -3,7 +3,7 @@
 @{
 	ViewData["Title"] = "Add Country";
 }
-<success Message="@TempData["Message"]"></success>
+<success Message="@TempData[GlobalConstants.SuccessMessageKey]"></success>
 <main class="mt-5 w-50 mx-auto main bg-white">
 	<h1 class="text-center bg-bet p-2 top">Add Country</h1>
 	<form class="text-center font-weight-bold" method="post" asp-area="@GlobalConstants.ModerationAreaText" asp-action="Add" asp-controller="Countries">

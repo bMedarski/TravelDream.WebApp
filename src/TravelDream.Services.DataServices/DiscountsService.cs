@@ -26,8 +26,8 @@
 			};
 
 			await this._discountRepository.AddAsync(discount);
-			await this._discountRepository.SaveChangesAsync();
-			return discount.Id;
+			var result = await this._discountRepository.SaveChangesAsync();
+			return result;
 		}
 
 		public IList<DiscountViewModel> All()

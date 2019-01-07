@@ -5,7 +5,7 @@
 	{
 		public int Id { get; set; }
 
-		public int DesignationNumber { get; set; }
+		public string DesignationNumber { get; set; }
 
 		public string CompanyName { get; set; }
 

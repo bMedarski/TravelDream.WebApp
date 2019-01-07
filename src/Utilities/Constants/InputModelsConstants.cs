@@ -34,5 +34,9 @@
 
 		public const string NormalDiscountText = "Normal";
 		public const decimal NormalDiscountPercent = (decimal) 1;
+
+
+
+
 	}
 }

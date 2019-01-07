@@ -34,7 +34,7 @@
 
 		    //var companyId = await this._ticketsService.Add(model);
 
-		    this.TempData["Message"] = "Ticket was added successfully";
+		    this.TempData[GlobalConstants.SuccessMessageKey] = "Ticket was added successfully";
 		    return this.Redirect("Add");
 	    }
     }

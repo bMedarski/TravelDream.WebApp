@@ -1,0 +1,225 @@
+﻿@using TravelDream.Data.Models.Enums
+@using TravelDream.Services.Utilities.Constants
+@model TravelDream.Services.ViewModels.TripModels.InputTripViewModel
+
+@{
+	ViewBag.Title = "Add Trip";
+	Layout = "_Layout";
+}
+<success Message="@TempData[GlobalConstants.SuccessMessageKey]"></success>
+<main class="mt-5 w-50 mx-auto main bg-white">
+	<h1 class="text-center bg-bet p-2 top">Add Trip</h1>
+	<form class="text-center font-weight-bold" method="post" asp-area="@GlobalConstants.ModerationAreaText" asp-action="Add" asp-controller="Trips">
+		<div class="p-2">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="row d-flex justify-content-between">
+				<div class="form-group col-md-6">
+					<label asp-for="TransportType"></label>
+					<select asp-for="TransportType" class="form-control" asp-items="Html.GetEnumSelectList<TransportType>()" id="transportationType">
+						<option selected="selected" value="">Please select</option>
+					</select>
+					<span asp-validation-for="TransportType" class="text-danger"></span>
+				</div>
+				<div class="form-group col-md-6">
+					<label asp-for="TransportId"></label>
+					<select asp-for="TransportId" class="form-control" id="transportsMenu">
+						<option selected="selected" disabled>Select transport</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="row d-flex justify-content-between">
+				<div class="form-group col-md-6">
+					<label asp-for="DepartureCountryId"></label>
+					<select asp-for="DepartureCountryId" class="form-control" id="departureCountriesMenu">
+						<option selected="selected" disabled>Select country</option>
+					</select>
+				</div>
+				<div class="form-group col-md-6">
+					<label asp-for="DepartureLocationId"></label>
+					<select asp-for="DepartureLocationId" class="form-control" id="departureLocationMenu">
+						<option selected="selected" disabled>Select location</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="row d-flex justify-content-between">
+				<div class="form-group col-md-6">
+					<label asp-for="DestinationCountryId"></label>
+					<select asp-for="DestinationCountryId" class="form-control" id="destinationCountriesMenu">
+						<option selected="selected" disabled>Select country</option>
+					</select>
+				</div>
+				<div class="form-group col-md-6">
+					<label asp-for="DestinationLocationId"></label>
+					<select asp-for="DestinationLocationId" class="form-control" id="destinationLocationMenu">
+						<option selected="selected" disabled>Select location</option>
+					</select>
+				</div>
+			</div>
+			<div class="row d-flex justify-content-between">
+				<div class="form-group w-50">
+					<label asp-for="DepartureTime"></label>
+					<input asp-for="DepartureTime" class="form-control" placeholder="Departure Time..." id="departureTime" />
+					<span asp-validation-for="DepartureTime" class="text-danger"></span>
+				</div>
+				<div class="form-group w-50">
+					<label asp-for="ArrivalTime"></label>
+					<input asp-for="ArrivalTime" class="form-control" placeholder="Arrival Time..." id="arrivalTime" />
+					<span asp-validation-for="ArrivalTime" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+		<input type="submit" id="btn-login" class="bg-bet p-2 w-100 font-weight-bold" value="Add" />
+	</form>
+</main>
+
+
+@section Scripts {
+	<script>
+		var selectTransport = '<option selected="selected" disabled>Select transport</option>';
+		var selectCountry = '<option selected="selected" disabled>Select country</option>';
+		var selectLocation = '<option selected="selected" disabled>Select location</option>';
+		var getAllLocationsByCountryUrl = "/@GlobalConstants.ModerationAreaText/Locations/GetAllByCountry";
+		var dateTimeFormat = "yyyy/MM/dd hh:mm tt";
+
+
+		$(document).ready(function() {
+
+			//Attach event on selecting transport type
+			$("#transportationType").change(function() {
+
+				//Get current transport type
+				var transportationTypeNumber = $("#transportationType").val();
+				
+				//Get all transports according to types
+				$.ajax({
+					url: "/@GlobalConstants.ModerationAreaText/Transports/GetAllByType",
+					data: {
+						transportType: transportationTypeNumber,
+					},
+					type: "POST",
+					dataType: "json",
+					success: function(transports) {
+
+						//After getting transports empty if any
+						$('#transportsMenu').empty();
+						$('#transportsMenu').append(selectTransport);
+
+						//Populate select for transports
+						$.each(transports,
+							function(index, value) {
+								$('#transportsMenu').append('<option value="' + value.id + '">' + value.designationNumber + '-' + value.companyName + '</option>');
+							});
+					}
+				});
+
+				//Get all countries
+				$.ajax({
+					url: "/@GlobalConstants.ModerationAreaText/Countries/GetAll",
+					type: "GET",
+					dataType: "json",
+					success: function(countries) {
+						//After getting countries empty if any countries or location
+						$('#transportsMenu').empty();
+						$('#transportsMenu').append(selectTransport);
+						$('#departureCountriesMenu').empty();
+						$('#departureCountriesMenu').append(selectCountry);
+						$('#departureLocationMenu').empty();
+						$('#departureLocationMenu').append(selectLocation);
+						$('#destinationCountriesMenu').empty();
+						$('#destinationCountriesMenu').append(selectCountry);
+						$('#destinationLocationMenu').empty();
+						$('#destinationLocationMenu').append(selectLocation);
+
+						//Populate select many for countries in departures
+						$.each(countries,
+							function(index, value) {
+								$('#departureCountriesMenu')
+									.append('<option value="' + value.id + '">' + value.name + '</option>');
+							});
+						//Populate select many for countries in destinations
+						$.each(countries,
+							function(index, value) {
+								$('#destinationCountriesMenu')
+									.append('<option value="' + value.id + '">' + value.name + '</option>');
+							});
+
+						//Attach event on selecting departure country
+						$("#departureCountriesMenu").change(function() {
+
+							//Get departure country
+							var departureCountry = $("#departureCountriesMenu").val();
+
+							//Get all locations in current country for specific transport type
+							$.ajax({
+								url: getAllLocationsByCountryUrl,
+								data: {
+									country: departureCountry,
+									transportType: transportationTypeNumber
+								},
+								type: "POST",
+								dataType: "json",
+								success: function(locations) {
+									console.log(locations)
+									$('#departureLocationMenu').empty();
+									$('#departureLocationMenu').append(selectLocation);
+
+									$.each(locations,
+										function(index, value) {
+											$('#departureLocationMenu')
+												.append('<option value="' + value.id + '">' + value.city + '</option>');
+										});
+								}
+							});
+
+						});
+						//Attach event on selecting destination country
+
+						$("#destinationCountriesMenu").change(function() {
+
+							//Get destination country
+							var destinationCountry = $("#destinationCountriesMenu").val();
+
+							//Get all locations in current country for specific transport type
+							$.ajax({
+								url: getAllLocationsByCountryUrl,
+								data: {
+									country: destinationCountry,
+									transportType: transportationTypeNumber
+								},
+								type: "POST",
+								dataType: "json",
+								success: function(locations) {
+									console.log(locations)
+									//Clear select destination location
+									$('#destinationLocationMenu').empty();
+									$('#destinationLocationMenu').append(selectLocation);
+
+									//Populate select destination location 
+									$.each(locations,
+										function(index, value) {
+											$('#destinationLocationMenu')
+												.append('<option value="' + value.id + '">' + value.city + '</option>');
+										});
+								}
+							});
+
+						});
+					}
+				});
+			});
+			//Kendo Date Pickers
+			$("#departureTime").kendoDateTimePicker({
+				value: new Date(),
+				dateInput: true,
+				format: dateTimeFormat
+			});
+			$("#arrivalTime").kendoDateTimePicker({
+				value: new Date(),
+				dateInput: true,
+				format: dateTimeFormat
+			});
+		});
+	</script>
+}

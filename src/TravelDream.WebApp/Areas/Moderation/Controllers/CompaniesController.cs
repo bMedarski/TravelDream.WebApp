@@ -34,7 +34,7 @@ namespace TravelDream.WebApp.Areas.Moderation.Controllers
 		    }
 		    var companyId = await this._companiesService.Add(model);
 
-		    this.TempData["Message"] = "Company was added successfully";
+		    this.TempData[GlobalConstants.SuccessMessageKey] = "Company was added successfully";
 		    return this.Redirect("Add");
 	    }
 	    [HttpGet]
