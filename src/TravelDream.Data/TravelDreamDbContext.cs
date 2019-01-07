@@ -20,5 +20,6 @@
 		public DbSet<Discount> Discounts { get; set; }
 		public DbSet<Country> Countries { get; set; }
 		public DbSet<Trip> Trips { get; set; }
+		public DbSet<City> Cities { get; set; }
 	}
 }

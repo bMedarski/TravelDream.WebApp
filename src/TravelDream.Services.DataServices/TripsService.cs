@@ -10,19 +10,19 @@
 	public class TripsService:ITripsService
 	{
 		private readonly IRepository<Trip> _tripsRepository;
-		private readonly ILocationsService _locationsService;
+		private readonly ICitiesService _citiesService;
 		private readonly ITransportsService _transportsService;
 
-		public TripsService(IRepository<Trip> tripsRepository,ILocationsService locationsService,ITransportsService transportsService)
+		public TripsService(IRepository<Trip> tripsRepository,ICitiesService citiesService,ITransportsService transportsService)
 		{
 			this._tripsRepository = tripsRepository;
-			this._locationsService = locationsService;
+			this._citiesService = citiesService;
 			this._transportsService = transportsService;
 		}
 		public async Task<int> Add(InputTripViewModel model)
 		{
-			var destinationLocation = this._locationsService.GetById(model.DestinationLocationId);
-			var departureLocation = this._locationsService.GetById(model.DepartureLocationId);
+			var destinationLocation = this._citiesService.GetById(model.DestinationLocationId);
+			var departureLocation = this._citiesService.GetById(model.DepartureLocationId);
 			var transport = this._transportsService.GetById(model.TransportId);
 			var location = new Trip
 			{
@@ -42,8 +42,8 @@
 			var locations = this._tripsRepository.All().Select(s => new TripViewModel()
 			{
 				Id = s.Id,
-				Destination = s.Destination.City,
-				Departure = s.Departure.City,
+				Destination = s.Destination.Name,
+				Departure = s.Departure.Name,
 			});
 			return locations;
 		}

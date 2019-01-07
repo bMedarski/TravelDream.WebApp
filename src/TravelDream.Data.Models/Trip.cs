@@ -8,9 +8,9 @@
 
 		public Transport Transport { get; set; }
 
-		public Location Destination { get; set; }
+		public City Destination { get; set; }
 
-		public Location Departure { get; set; }
+		public City Departure { get; set; }
 
 		public DateTime DepartureTime { get; set; }
 

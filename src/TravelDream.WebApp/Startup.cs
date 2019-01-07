@@ -75,7 +75,7 @@
 			services.AddScoped<ITicketsService,TicketsService>();
 			services.AddScoped<ISeatsService,SeatsService>();
 			services.AddScoped<ITripsService,TripsService>();
-			services.AddScoped<ILocationsService,LocationsService>();
+			services.AddScoped<ICitiesService,CitiesService>();
 
 			services.ConfigureApplicationCookie(options =>
 			{

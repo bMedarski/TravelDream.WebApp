@@ -9,19 +9,76 @@
 			<ul class="navbar-nav ml-auto">
 				@if (this.User.IsInRole(GlobalConstants.ModeratorRoleText) || this.User.IsInRole(GlobalConstants.AdminRoleText))
 				{
-					<li class="nav-item dropdown">
+					<li class="dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Moderation
+							Locations
 						</a>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-							<a class="dropdown-item" asp-area="@GlobalConstants.ModerationAreaText" asp-action="Add" asp-controller="Locations">Location</a>
-							<a class="dropdown-item" asp-area="@GlobalConstants.ModerationAreaText" asp-action="Add" asp-controller="Countries">Country</a>
-							<a class="dropdown-item" asp-area="@GlobalConstants.ModerationAreaText" asp-action="Add" asp-controller="Companies">Company</a>
-							<a class="dropdown-item" asp-area="@GlobalConstants.ModerationAreaText" asp-action="Add" asp-controller="Transports">Transport</a>
-							<a class="dropdown-item" asp-area="@GlobalConstants.ModerationAreaText" asp-action="AddSeats" asp-controller="Seats">Seats</a>
-							<a class="dropdown-item" asp-area="@GlobalConstants.ModerationAreaText" asp-action="Add" asp-controller="Trips">Trips</a>
-						</div>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+							<li class="dropdown-submenu">
+								<a class="dropdown-item" tabindex="-1" href="#">Cities</a>
+								<ul class="dropdown-menu">
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.LocationsAreaText" asp-action="Add" asp-controller="Cities">Add</a></li>
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.LocationsAreaText" asp-action="Add" asp-controller="Cities">Edit</a></li>
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.LocationsAreaText" asp-action="Add" asp-controller="Cities">Delete</a></li>
+								</ul>
+							</li>
+							<li class="dropdown-submenu">
+								<a class="dropdown-item" tabindex="-1" href="#">Countries</a>
+								<ul class="dropdown-menu">
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.LocationsAreaText" asp-action="Add" asp-controller="Countries">Add</a></li>
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.LocationsAreaText" asp-action="Add" asp-controller="Countries">Edit</a></li>
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.LocationsAreaText" asp-action="Add" asp-controller="Countries">Delete</a></li>
+								</ul>
+							</li>
+						</ul>
 					</li>
+					<li class="dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Transportations
+						</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+							<li class="dropdown-submenu">
+								<a class="dropdown-item" tabindex="-1" href="#">Seats</a>
+								<ul class="dropdown-menu">
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.TransportationsAreaText" asp-action="AddSeats" asp-controller="Seats">Add</a></li>
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.TransportationsAreaText" asp-action="AddSeats" asp-controller="Seats">Edit</a></li>
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.TransportationsAreaText" asp-action="AddSeats" asp-controller="Seats">Delete</a></li>
+								</ul>
+							</li>
+							<li class="dropdown-submenu">
+								<a class="dropdown-item" tabindex="-1" href="#">Transports</a>
+								<ul class="dropdown-menu">
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.TransportationsAreaText" asp-action="Add" asp-controller="Transports">Add</a></li>
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.TransportationsAreaText" asp-action="Add" asp-controller="Transports">Edit</a></li>
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.TransportationsAreaText" asp-action="Add" asp-controller="Transports">Delete</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Travels
+						</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+							<li class="dropdown-submenu">
+								<a class="dropdown-item" tabindex="-1" href="#">Tickets</a>
+								<ul class="dropdown-menu">
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.TravelsAreaText" asp-action="Add" asp-controller="Tickets">Add</a></li>
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.TravelsAreaText" asp-action="Add" asp-controller="Tickets">Edit</a></li>
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.TravelsAreaText" asp-action="Add" asp-controller="Tickets">Delete</a></li>
+								</ul>
+							</li>
+							<li class="dropdown-submenu">
+								<a class="dropdown-item" tabindex="-1" href="#">Trips</a>
+								<ul class="dropdown-menu">
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.TravelsAreaText" asp-action="Add" asp-controller="Trips">Add</a></li>
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.TravelsAreaText" asp-action="Add" asp-controller="Trips">Edit</a></li>
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.TravelsAreaText" asp-action="Add" asp-controller="Trips">Delete</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+
 				}
 				@if (this.User.Identity.IsAuthenticated)
 				{
@@ -47,4 +104,22 @@
 			</ul>
 		</div>
 	</div>
-</nav>  
+</nav>
+
+
+
+
+
+<script>
+	$('.dropdown-submenu > a').on("click", function (e) {
+		var submenu = $(this);
+		$('.dropdown-submenu .dropdown-menu').removeClass('show');
+		submenu.next('.dropdown-menu').addClass('show');
+		e.stopPropagation();
+	});
+
+	$('.dropdown').on("hidden.bs.dropdown", function () {
+		// hide any open menus when parent closes
+		$('.dropdown-menu.show').removeClass('show');
+	});
+</script>

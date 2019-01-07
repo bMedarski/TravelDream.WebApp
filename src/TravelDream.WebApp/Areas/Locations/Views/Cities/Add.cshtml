@@ -1,0 +1,65 @@
+﻿@using TravelDream.Services.Utilities.Constants
+@model TravelDream.Services.ViewModels.CityModels.InputCityViewModel
+
+@{
+	ViewBag.Title = "Add City";
+	Layout = "_Layout";
+}
+<success Message="@TempData[GlobalConstants.SuccessMessageKey]"></success>
+<main class="mt-5 w-50 mx-auto main bg-white">
+	<h1 class="text-center bg-bet p-2 top">Add City</h1>
+	<form class="text-center font-weight-bold" method="post" asp-area="@GlobalConstants.LocationsAreaText" asp-action="Add" asp-controller="Cities">
+		<div class="p-2">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group w-50 mx-auto">
+				<label asp-for="Name"></label>
+				<input asp-for="Name" class="form-control" placeholder="Name..." />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group  mx-auto w-50">
+				<label asp-for="CountryId"></label>
+				<select asp-for="CountryId" class="form-control" id="countriesMenu">
+					<option selected="selected" disabled>Select country</option>
+				</select>
+			</div>
+			<div class="form-group w-50 mx-auto">
+				<a asp-area="@GlobalConstants.LocationsAreaText" asp-action="Add" asp-controller="Countries">Add Country</a>
+			</div>
+			<br />
+			<div class="form-group w-50 mx-auto">
+				<label asp-for="HasAirport"></label>
+				<input asp-for="HasAirport" />
+				<span asp-validation-for="HasAirport" class="text-danger"></span>
+			</div>
+			<div class="form-group w-50 mx-auto">
+				<label asp-for="HasPort"></label>
+				<input asp-for="HasPort" />
+				<span asp-validation-for="HasPort" class="text-danger"></span>
+			</div>
+			<div class="form-group w-50 mx-auto">
+				<label asp-for="HasTrainStation"></label>
+				<input asp-for="HasTrainStation" />
+				<span asp-validation-for="HasTrainStation" class="text-danger"></span>
+			</div>
+		</div>
+		<input type="submit" id="btn-login" class="bg-bet p-2 w-100 font-weight-bold" value="Add" />
+	</form>
+</main>
+
+@section Scripts {
+	<script>
+		$(document).ready(function() {
+			$.ajax({
+				url: "/@GlobalConstants.LocationsAreaText/Countries/GetAll",
+				type: "GET",
+				dataType: "json",
+				success: function(sports) {
+					$.each(sports,
+						function(index, value) {
+							$('#countriesMenu').append('<option value="' + value.id + '">' + value.name + '</option>');
+						});
+				}
+			});
+		});
+	</script>
+}

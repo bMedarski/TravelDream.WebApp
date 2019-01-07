@@ -3,6 +3,7 @@
 	using System.Threading.Tasks;
 	using Data.Common;
 	using Filters;
+	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 	using Services.DataServices.Contracts;
@@ -11,6 +12,7 @@
 	using WebApp.Controllers;
 
 	[Area(GlobalConstants.AdministrationAreaText)]
+	[Authorize(Roles = GlobalConstants.AdminRoleText)]
 	public class UsersController : BaseController
 	{
 		private readonly IUsersService _usersService;

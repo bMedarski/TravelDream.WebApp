@@ -20,33 +20,33 @@
 		{
 			this._next = next;
 		}
-		public async Task InvokeAsync(HttpContext httpContext, TravelDreamDbContext dbContext,RoleManager<IdentityRole> roleManager,UserManager<User> userManager,IDiscountsService discountsService)
+		public async Task InvokeAsync(HttpContext httpContext, TravelDreamDbContext dbContext, RoleManager<IdentityRole> roleManager, UserManager<User> userManager, IDiscountsService discountsService)
 		{
 			this._roleManager = roleManager;
 			this._userManager = userManager;
-			this.SeedRoles(roleManager,userManager);
-			this.SeedDiscounts(discountsService);
+			this.SeedRoles(roleManager, userManager);
+			await this.SeedDiscounts(discountsService);
 			await this.SeedAdmin(roleManager, userManager);
 			await this._next(httpContext);
 		}
-		public void SeedRoles(RoleManager<IdentityRole> rm,UserManager<User> um)
+		public void SeedRoles(RoleManager<IdentityRole> rm, UserManager<User> um)
 		{
 			if (!rm.RoleExistsAsync
 				(GlobalConstants.UserRoleText).Result)
 			{
 				IdentityRole role = new IdentityRole(GlobalConstants.UserRoleText);
 				IdentityResult roleResult = rm.CreateAsync(role).Result;
-			}			
+			}
 			if (!rm.RoleExistsAsync
 				(GlobalConstants.ModeratorRoleText).Result)
 			{
-				IdentityRole role = new IdentityRole {Name = GlobalConstants.ModeratorRoleText};
+				IdentityRole role = new IdentityRole { Name = GlobalConstants.ModeratorRoleText };
 				IdentityResult roleResult = rm.CreateAsync(role).Result;
 			}
 			if (!rm.RoleExistsAsync
 				(GlobalConstants.AdminRoleText).Result)
 			{
-				IdentityRole role = new IdentityRole {Name = GlobalConstants.AdminRoleText};
+				IdentityRole role = new IdentityRole { Name = GlobalConstants.AdminRoleText };
 				IdentityResult roleResult = rm.CreateAsync(role).Result;
 			}
 		}
@@ -70,10 +70,10 @@
 			}
 
 			return null;
-		}		
-		public void SeedDiscounts(IDiscountsService discountsService)
+		}
+		public async Task<int> SeedDiscounts(IDiscountsService discountsService)
 		{
-			if (discountsService.All().Count==0)
+			if (discountsService.All().Count == 0)
 			{
 				var child = new InputDiscountViewModel
 				{
@@ -95,11 +95,13 @@
 					Name = InputModelsConstants.NormalDiscountText,
 					Percent = InputModelsConstants.NormalDiscountPercent
 				};
-				discountsService.Add(child);
-				discountsService.Add(senior);
-				discountsService.Add(student);
-				discountsService.Add(normal);
+				await discountsService.Add(child);
+				await discountsService.Add(senior);
+				await discountsService.Add(student);
+				await discountsService.Add(normal);
 			}
+
+			return 0;
 		}
 	}
 }
