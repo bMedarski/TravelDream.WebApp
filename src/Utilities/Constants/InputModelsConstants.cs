@@ -9,6 +9,8 @@
 		public const string EmailInvalidErrorMessage = "Email is not valid";
 		public const string DateInvalidErrorMessage = "Date is not valid";
 		public const string ImageUrlInvalidErrorMessage = "Image URL is not valid";
+		public const string UserAlreadyExistErrorMessage = "User already exist";
+		public const string WrongUsernameOrPasswordErrorMessage = "Wrong username or password!";
 
 		public const string UsernameRegularExpressionFormat = "[a-zA-Z0-9-*_~.]+";
 		public const string EmailRegularExpressionFormat = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
@@ -16,7 +18,8 @@
 		                                                   @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
 
 		public const string ImageUrlRegularExpressionFormat = "(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png)";
-		public const string DateFormat = "{yyyy/MM/dd hh:mm tt}";
+		public const string DateFormatTime = "yyyy/MM/dd hh:mm tt";
+		public const string DateFormat = "dd/MMMM hh:mm ";
 
 		public const int UsernameMinimumLength = 3;
 		public const string UsernameLengthErrorMessage = "Length must be more then 3";

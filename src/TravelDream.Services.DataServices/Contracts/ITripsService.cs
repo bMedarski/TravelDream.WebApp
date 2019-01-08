@@ -10,5 +10,6 @@
 		Task<int> Add(InputTripViewModel model);
 		IQueryable<TripViewModel> GetAll();
 		Trip GetById(int id);
+		TripDetailedView Details(int id);
 	}
 }

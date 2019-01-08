@@ -10,8 +10,8 @@ using TravelDream.Data;
 namespace TravelDream.Data.Migrations
 {
     [DbContext(typeof(TravelDreamDbContext))]
-    [Migration("20181226115052_some_models")]
-    partial class some_models
+    [Migration("20190108113903_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,6 +195,29 @@ namespace TravelDream.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("TravelDream.Data.Models.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CountryId");
+
+                    b.Property<bool>("HasAirport");
+
+                    b.Property<bool>("HasPort");
+
+                    b.Property<bool>("HasTrainStation");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("Cities");
+                });
+
             modelBuilder.Entity("TravelDream.Data.Models.Company", b =>
                 {
                     b.Property<int>("Id")
@@ -233,42 +256,27 @@ namespace TravelDream.Data.Migrations
                     b.ToTable("Discounts");
                 });
 
-            modelBuilder.Entity("TravelDream.Data.Models.Location", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("City");
-
-                    b.Property<int?>("CountryId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("Locations");
-                });
-
             modelBuilder.Entity("TravelDream.Data.Models.Seat", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Number");
+                    b.Property<int>("Number");
 
                     b.Property<decimal>("Price");
 
-                    b.Property<string>("Row");
-
                     b.Property<int?>("TransportId");
+
+                    b.Property<int?>("TransportId1");
 
                     b.Property<int>("Type");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TransportId");
+
+                    b.HasIndex("TransportId1");
 
                     b.ToTable("Seats");
                 });
@@ -304,7 +312,9 @@ namespace TravelDream.Data.Migrations
 
                     b.Property<int?>("CompanyId");
 
-                    b.Property<int>("SeatsAvailable");
+                    b.Property<string>("DesignationNumber");
+
+                    b.Property<int>("LastSeatNumber");
 
                     b.Property<int>("TransportType");
 
@@ -313,6 +323,33 @@ namespace TravelDream.Data.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Transports");
+                });
+
+            modelBuilder.Entity("TravelDream.Data.Models.Trip", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("ArrivalTime");
+
+                    b.Property<int?>("DepartureId");
+
+                    b.Property<DateTime>("DepartureTime");
+
+                    b.Property<int?>("DestinationId");
+
+                    b.Property<int?>("TransportId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartureId");
+
+                    b.HasIndex("DestinationId");
+
+                    b.HasIndex("TransportId");
+
+                    b.ToTable("Trips");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -360,14 +397,14 @@ namespace TravelDream.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("TravelDream.Data.Models.Company", b =>
+            modelBuilder.Entity("TravelDream.Data.Models.City", b =>
                 {
                     b.HasOne("TravelDream.Data.Common.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId");
                 });
 
-            modelBuilder.Entity("TravelDream.Data.Models.Location", b =>
+            modelBuilder.Entity("TravelDream.Data.Models.Company", b =>
                 {
                     b.HasOne("TravelDream.Data.Common.Country", "Country")
                         .WithMany()
@@ -379,6 +416,10 @@ namespace TravelDream.Data.Migrations
                     b.HasOne("TravelDream.Data.Models.Transport")
                         .WithMany("Seats")
                         .HasForeignKey("TransportId");
+
+                    b.HasOne("TravelDream.Data.Models.Transport")
+                        .WithMany("SeatsTaken")
+                        .HasForeignKey("TransportId1");
                 });
 
             modelBuilder.Entity("TravelDream.Data.Models.Ticket", b =>
@@ -399,8 +440,23 @@ namespace TravelDream.Data.Migrations
             modelBuilder.Entity("TravelDream.Data.Models.Transport", b =>
                 {
                     b.HasOne("TravelDream.Data.Models.Company", "Company")
-                        .WithMany()
+                        .WithMany("Transports")
                         .HasForeignKey("CompanyId");
+                });
+
+            modelBuilder.Entity("TravelDream.Data.Models.Trip", b =>
+                {
+                    b.HasOne("TravelDream.Data.Models.City", "Departure")
+                        .WithMany()
+                        .HasForeignKey("DepartureId");
+
+                    b.HasOne("TravelDream.Data.Models.City", "Destination")
+                        .WithMany()
+                        .HasForeignKey("DestinationId");
+
+                    b.HasOne("TravelDream.Data.Models.Transport", "Transport")
+                        .WithMany()
+                        .HasForeignKey("TransportId");
                 });
 #pragma warning restore 612, 618
         }

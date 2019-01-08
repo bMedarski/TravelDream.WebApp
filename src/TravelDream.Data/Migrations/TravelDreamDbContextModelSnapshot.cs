@@ -254,29 +254,6 @@ namespace TravelDream.Data.Migrations
                     b.ToTable("Discounts");
                 });
 
-            modelBuilder.Entity("TravelDream.Data.Models.Location", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("City");
-
-                    b.Property<int?>("CountryId");
-
-                    b.Property<bool>("HasAirport");
-
-                    b.Property<bool>("HasPort");
-
-                    b.Property<bool>("HasTrainStation");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("Locations");
-                });
-
             modelBuilder.Entity("TravelDream.Data.Models.Seat", b =>
                 {
                     b.Property<int>("Id")
@@ -432,13 +409,6 @@ namespace TravelDream.Data.Migrations
                         .HasForeignKey("CountryId");
                 });
 
-            modelBuilder.Entity("TravelDream.Data.Models.Location", b =>
-                {
-                    b.HasOne("TravelDream.Data.Common.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId");
-                });
-
             modelBuilder.Entity("TravelDream.Data.Models.Seat", b =>
                 {
                     b.HasOne("TravelDream.Data.Models.Transport")
@@ -474,11 +444,11 @@ namespace TravelDream.Data.Migrations
 
             modelBuilder.Entity("TravelDream.Data.Models.Trip", b =>
                 {
-                    b.HasOne("TravelDream.Data.Models.Location", "Departure")
+                    b.HasOne("TravelDream.Data.Models.City", "Departure")
                         .WithMany()
                         .HasForeignKey("DepartureId");
 
-                    b.HasOne("TravelDream.Data.Models.Location", "Destination")
+                    b.HasOne("TravelDream.Data.Models.City", "Destination")
                         .WithMany()
                         .HasForeignKey("DestinationId");
 

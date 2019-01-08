@@ -78,7 +78,21 @@
 							</li>
 						</ul>
 					</li>
-
+					<li class="dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Administration
+						</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+							<li class="dropdown-submenu">
+								<a class="dropdown-item" tabindex="-1" href="#">Companies</a>
+								<ul class="dropdown-menu">
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.AdministrationAreaText" asp-action="Add" asp-controller="Companies">Add</a></li>
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.AdministrationAreaText" asp-action="Add" asp-controller="Companies">Edit</a></li>
+									<li class="dropdown-item"><a class="dropdown-item" asp-area="@GlobalConstants.AdministrationAreaText" asp-action="Add" asp-controller="Companies">Delete</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
 				}
 				@if (this.User.Identity.IsAuthenticated)
 				{
@@ -106,11 +120,7 @@
 	</div>
 </nav>
 
-
-
-
-
-<script>
+@*<script>
 	$('.dropdown-submenu > a').on("click", function (e) {
 		var submenu = $(this);
 		$('.dropdown-submenu .dropdown-menu').removeClass('show');
@@ -122,4 +132,4 @@
 		// hide any open menus when parent closes
 		$('.dropdown-menu.show').removeClass('show');
 	});
-</script>
+</script>*@

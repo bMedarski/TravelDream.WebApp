@@ -91,7 +91,7 @@
 
 				//Get current transport type
 				var transportationTypeNumber = $("#transportationType").val();
-				
+
 				//Get all transports according to types
 				$.ajax({
 					url: "/@GlobalConstants.TransportationsAreaText/Transports/GetAllByType",
@@ -103,14 +103,23 @@
 					success: function(transports) {
 
 						//After getting transports empty if any
-						$('#transportsMenu').empty();
-						$('#transportsMenu').append(selectTransport);
+						//$('#transportsMenu').empty();
+						//$('#transportsMenu').append(selectTransport);
 
 						//Populate select for transports
+						var toAppend = "";
 						$.each(transports,
 							function(index, value) {
-								$('#transportsMenu').append('<option value="' + value.id + '">' + value.designationNumber + '-' + value.companyName + '</option>');
+								toAppend += '<option value="' +
+									value.id +
+									'">' +
+									value.designationNumber +
+									'-' +
+									value.companyName +
+									'</option>';
+								
 							});
+						$('#transportsMenu').append(toAppend);
 					}
 				});
 
@@ -161,7 +170,6 @@
 								type: "POST",
 								dataType: "json",
 								success: function(locations) {
-									console.log(locations)
 									$('#departureLocationMenu').empty();
 									$('#departureLocationMenu').append(selectLocation);
 
@@ -191,12 +199,11 @@
 								type: "POST",
 								dataType: "json",
 								success: function(locations) {
-									console.log(locations)
 									//Clear select destination location
 									$('#destinationLocationMenu').empty();
 									$('#destinationLocationMenu').append(selectLocation);
 
-									//Populate select destination location 
+									//Populate select destination location
 									$.each(locations,
 										function(index, value) {
 											$('#destinationLocationMenu')

@@ -1,6 +1,7 @@
 ﻿namespace TravelDream.Services.ViewModels.UserModels
 {
 	using System.ComponentModel.DataAnnotations;
+	using Microsoft.AspNetCore.Mvc;
 	using Utilities.Constants;
 
 	public class InputRegisterViewModel
@@ -9,6 +10,7 @@
 		[MinLength(InputModelsConstants.UsernameMinimumLength,ErrorMessage = InputModelsConstants.UsernameLengthErrorMessage)]
 		[RegularExpression(InputModelsConstants.UsernameRegularExpressionFormat,
 			ErrorMessage = InputModelsConstants.UsernameInvalidErrorMessage)]
+		[Remote(action: "IsUserAvailable", controller: "Users",ErrorMessage = InputModelsConstants.UserAlreadyExistErrorMessage)]
 		public string Username { get; set; }
 
 		[Required(ErrorMessage = InputModelsConstants.RequiredErrorMessage)]

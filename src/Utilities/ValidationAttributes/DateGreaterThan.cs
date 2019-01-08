@@ -1,4 +1,4 @@
-﻿namespace TravelDream.WebApp.ValidationAttributes
+﻿namespace TravelDream.Services.Utilities.ValidationAttributes
 {
 	using System;
 	using System.ComponentModel.DataAnnotations;

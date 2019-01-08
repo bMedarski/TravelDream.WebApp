@@ -1,5 +1,6 @@
 ﻿namespace TravelDream.WebApp.Areas.Administration.Controllers
 {
+	using System.Threading;
 	using System.Threading.Tasks;
 	using Data.Common;
 	using Filters;
@@ -12,16 +13,17 @@
 	using WebApp.Controllers;
 
 	[Area(GlobalConstants.AdministrationAreaText)]
-	[Authorize(Roles = GlobalConstants.AdminRoleText)]
 	public class UsersController : BaseController
 	{
 		private readonly IUsersService _usersService;
 		private readonly SignInManager<User> _signInManager;
+		private readonly UserManager<User> _userManager;
 
-		public UsersController(IUsersService usersService, SignInManager<User> signInManager)
+		public UsersController(IUsersService usersService, SignInManager<User> signInManager,UserManager<User> userManager)
 		{
 			this._usersService = usersService;
 			this._signInManager = signInManager;
+			this._userManager = userManager;
 		}
 
 		public IActionResult Login()
@@ -29,7 +31,6 @@
 			return this.View();
 		}
 
-		[ValidateModelState]
 		[HttpPost]
 		public async Task<IActionResult> Login(InputLoginViewModel model)
 		{
@@ -37,6 +38,7 @@
 			{
 				return this.View(model);
 			}
+
 			var result = await this._signInManager.PasswordSignInAsync(model.Username,
 				model.Password, model.RememberMe, false);
 
@@ -44,8 +46,12 @@
 			{
 				return this.RedirectToAction("Index", "Home", new { area = "" });
 			}
-
-			return this.StatusCode(404);
+			else
+			{
+				
+				this.ModelState.AddModelError("", InputModelsConstants.WrongUsernameOrPasswordErrorMessage);
+				return this.View(model);
+			}
 		}
 		public IActionResult Register()
 		{
@@ -53,10 +59,14 @@
 		}
 
 		[HttpPost]
-		[ValidateModelState]
-		public IActionResult Register(InputRegisterViewModel model)
+		public async Task<IActionResult> Register(InputRegisterViewModel model)
 		{
-			this._usersService.CreateUser(model);
+			if (!this.ModelState.IsValid)
+			{
+				return this.View(model);
+			}
+
+			await this._usersService.CreateUser(model);
 			return this.RedirectToAction("Index", "Home", new { area = "" });
 		}
 		
@@ -64,6 +74,16 @@
 		{
 			this._usersService.LogoutUser();
 			return this.RedirectToAction("Index", "Home", new { area = "" });
+		}
+
+		public IActionResult IsUserAvailable(string username)
+		{
+			var user = this._userManager.FindByNameAsync(username);
+			if (user.Result == null)
+			{
+				return this.Json(true);
+			}
+			return this.Json(false);
 		}
 
 		//[Authorize(Roles = GlobalConstants.AdminRoleText)]

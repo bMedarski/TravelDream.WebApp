@@ -13,7 +13,6 @@
 		}
 
 		public DbSet<Ticket> Tickets { get; set; }
-		public DbSet<Location> Locations { get; set; }
 		public DbSet<Company> Companies { get; set; }
 		public DbSet<Transport> Transports { get; set; }
 		public DbSet<Seat> Seats { get; set; }
