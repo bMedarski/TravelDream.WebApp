@@ -1,5 +1,6 @@
 ﻿namespace TravelDream.Services.DataServices
 {
+	using System;
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Threading.Tasks;
@@ -97,6 +98,19 @@
 				}
 			}
 			return transportsAvailable;
+		}
+
+		public bool IsTransportOfCorrectType(int transportId, TransportType type)
+		{
+			var transport = this._transportRepository.All().FirstOrDefault(t => t.Id == transportId);
+			if (transport != null && transport.TransportType == type)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
 }

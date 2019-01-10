@@ -2,20 +2,22 @@
 {
 	using System.ComponentModel.DataAnnotations;
 	using Data.Models.Enums;
+	using Utilities.Constants;
 
 	public class AddSeatsInputViewModel
 	{
 
-		[Display(Name = "Seats Count")]
+		[Display(Name = InputModelsConstants.SeatCountDisplayName)]
+		[Range(InputModelsConstants.MinSeatCount,InputModelsConstants.MaxSeatCount)]
 		public int SeatCount { get; set; }
 
-		[Display(Name = "Type of  seat")]
+		[Display(Name = InputModelsConstants.TypeSeatDisplayName)]
 		public SeatType SeatType { get; set; }
 
-		[Display(Name = "Transport Designation")]
+		[Display(Name = InputModelsConstants.TransportDesignationDisplayName)]
 		public int TransportId { get; set; }
 
-		[Display(Name = "Price")]
+		[Range(InputModelsConstants.MinPrice,InputModelsConstants.MaxPrice)]
 		public decimal Price { get; set; }
 	}
 }

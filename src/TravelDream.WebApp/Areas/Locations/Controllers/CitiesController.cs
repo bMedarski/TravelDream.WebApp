@@ -14,10 +14,12 @@
 	public class CitiesController : BaseController
 	{
 		private readonly ICitiesService _citiesService;
+		private readonly ICountriesService _countriesService;
 
-		public CitiesController(ICitiesService citiesService)
+		public CitiesController(ICitiesService citiesService,ICountriesService countriesService)
 		{
 			this._citiesService = citiesService;
+			this._countriesService = countriesService;
 		}
 		public IActionResult IsExist(string name)
 		{
@@ -35,7 +37,6 @@
 			{
 				return this.View(model);
 			}
-
 			var result = await this._citiesService.Add(model);
 			this.TempData[GlobalConstants.SuccessMessageKey] = $"{model.Name}" + GlobalConstants.SuccessfullyAddedMessage;
 			return this.Redirect("Add");
@@ -46,8 +47,6 @@
 			var cities = this._citiesService.GetAll().ToList();
 			return this.Json(cities);
 		}
-		//TODO put javascript in separate files 
-		//TODO display selected menus only after ajax request
 
 		[HttpPost]
 		public JsonResult GetAllByCountry(int country, int transportType)

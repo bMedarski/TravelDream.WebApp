@@ -111,5 +111,59 @@
 			var city = this._cityRepository.All().FirstOrDefault(s => s.Id == id);
 			return city;
 		}
+		public bool IsCityInCountry(int cityId, int countryId)
+		{
+			var city = this.GetById(cityId);
+			var country = this._countriesService.GetById(countryId);
+			if (city.Country == country)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public bool IsCityForTransportType(int cityId, TransportType type)
+		{
+			var city = this._cityRepository.All().FirstOrDefault(c => c.Id == cityId);
+
+			if (type == TransportType.Boat)
+			{
+				if (city.HasPort)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else if (type == TransportType.Plane)
+			{
+				if (city.HasAirport)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else if (type == TransportType.Train)
+			{
+				if (city.HasTrainStation)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
 	}
 }

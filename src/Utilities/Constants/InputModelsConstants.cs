@@ -38,8 +38,44 @@
 		public const string NormalDiscountText = "Normal";
 		public const decimal NormalDiscountPercent = (decimal) 1;
 
+		public const string TransportTypeDisplayName = "Type of transportation";
+		public const string DepartureCountryDisplayName = "Departure Country";
+		public const string DepartureCityDisplayName = "Departure City";
+		public const string DestinationCountryDisplayName = "Destination Country";
+		public const string DestinationCityDisplayName = "Destination City";
+		public const string TransportDisplayName = "Transport";
+		public const string DepartureTimeDisplayName = "Departure Time";
+		public const string ArrivalTimeDisplayName = "Arrival Time";
+		public const string CountryAlreadyExistError = "Country already exists";
 
+		public const string FutureDateValidationError = "Starting date must not be in the past";
+		public const string DepartureDateBeforeArrivalDateError = "Departure date must be before arrival date";
 
+		public const string CityInCountryError = "City must be in the Country";
+		public const string TransportNotCorrectType = "Transport are not from correct Transport Type";
+		public const string CityDoesNotSupportsType = "City does not supports transportaion type";
 
+		public const int CompanyNameLength = 3;
+		public const string CompanyNameLengthError = "Length must be more than 3";
+
+		public const int AddressNameLength = 5;
+		public const string AddressNameLengthError = "Length must be more than 5";
+
+		public const int CountryNameLength = 3;
+		public const string CountryNameLengthError = "Length must be more than 3";
+
+		public const string SeatCountDisplayName = "Seat Count";
+		public const string TypeSeatDisplayName = "Type of Seat";
+		public const string TransportDesignationDisplayName = "Transport Designation";
+
+		public const int MinPrice = 1;
+		public const int MaxPrice = 9999;
+
+		public const int MinSeatCount = 1;
+		public const int MaxSeatCount = 10;
+
+		public const string CompanyNameDisplayName = "Company name";
+
+		public const string DesignationNumberRegex = "^[a-zA-Z0-9]{12}$";
 	}
 }

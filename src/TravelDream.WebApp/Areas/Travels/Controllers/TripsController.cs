@@ -16,31 +16,48 @@
 	public class TripsController : BaseController
 	{
 		private readonly ITripsService _tripsService;
+		private readonly ICitiesService _citiesService;
+		private readonly ITransportsService _transportsService;
 
-		public TripsController(ITripsService tripsService)
+		public TripsController(ITripsService tripsService,ICitiesService citiesService,ITransportsService transportsService)
 		{
 			this._tripsService = tripsService;
+			this._citiesService = citiesService;
+			this._transportsService = transportsService;
 		}
 
 		public IActionResult Add()
 		{
 			return this.View();
 		}
-
-		//TODO da napravq pri change na locationite ajax kato IsExist za proverka dali sa ednakvi
-		//TODO atributi bez validaciq
-		//TODO i za datite
-
-
-
 		[HttpPost]
 		public async Task<IActionResult> Add(InputTripViewModel model)
 		{
 			if (!this.ModelState.IsValid)
 			{
 				return this.View(model);
+				
 			}
 
+			if (this._citiesService.IsCityInCountry(model.DepartureLocationId, model.DepartureCountryId)
+			    || this._citiesService.IsCityInCountry(model.DestinationLocationId, model.DestinationCountryId))
+			{
+				this.ModelState.AddModelError("",InputModelsConstants.CityInCountryError);
+				return this.View(model);
+			}
+
+			if (this._transportsService.IsTransportOfCorrectType(model.TransportId, model.TransportType))
+			{
+				this.ModelState.AddModelError("",InputModelsConstants.TransportNotCorrectType);
+				return this.View(model);
+			}
+
+			if (this._citiesService.IsCityForTransportType(model.DepartureLocationId, model.TransportType)
+			    || this._citiesService.IsCityForTransportType(model.DestinationLocationId, model.TransportType))
+			{
+				this.ModelState.AddModelError("",InputModelsConstants.CityDoesNotSupportsType);
+				return this.View(model);
+			}
 			var result = await this._tripsService.Add(model);
 
 			this.TempData[GlobalConstants.SuccessMessageKey] = "Trip" + GlobalConstants.SuccessfullyAddedMessage;

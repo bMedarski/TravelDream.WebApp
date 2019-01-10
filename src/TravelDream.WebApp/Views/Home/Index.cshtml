@@ -28,7 +28,7 @@
 				"serverSide": true, // for process server side
 				"filter": true, // this is for disable filter (search box)
 				"orderMulti": false, // for disable multiple column at once
-				"order": [[3, "desc"]],
+				"order": [[3, "asc"]],
 				"ajax": {
 					"url": "/@GlobalConstants.TravelsAreaText/Trips/GetAll",
 					"type": "POST",
@@ -52,50 +52,10 @@
 						"render": function(data, type, full, meta) {
 							return '<td><a class="bg-bet btn-buy" href="@GlobalConstants.TravelsAreaText/Trips/Details/' + full.id + '">Details</a></td>';
 						}
-					},
-					//{
-					//	data: null,
-					//	render: function(data, type, row) {
-					//		return "<a href='#' class='btn btn-danger' onclick=DeleteData('" +
-					//			row.CustomerID +
-					//			"'); >Delete</a>";
-					//	}
-					//},
+					}
 				]
 
 			});
 		});
-
-
-		@*function DeleteData(CustomerID)
-        {
-            if (confirm("Are you sure you want to delete ...?"))
-            {
-                Delete(CustomerID);
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
-        function Delete(CustomerID)
-    {
-        var url = '@Url.Content("~/")' + "DemoGrid/Delete";
-
-            $.post(url, { ID: CustomerID }, function (data)
-                {
-                    if (data)
-                    {
-                        oTable = $('#example').DataTable();
-                        oTable.draw();
-                    }
-                    else
-                    {
-                        alert("Something Went Wrong!");
-                    }
-                });
-    }*@
 	</script>
 }

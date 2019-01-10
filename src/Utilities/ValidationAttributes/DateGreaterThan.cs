@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.ComponentModel.DataAnnotations;
+	using Constants;
 
 	public class DateGreaterThan : ValidationAttribute
 	{
@@ -20,7 +21,7 @@
 			}
 			else
 			{
-				return new ValidationResult("Start date must be before end date");
+				return new ValidationResult(InputModelsConstants.DepartureDateBeforeArrivalDateError);
 			}
 		}
 	}
