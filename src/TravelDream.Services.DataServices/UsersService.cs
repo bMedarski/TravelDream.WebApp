@@ -5,6 +5,7 @@
 	using Contracts;
 	using Data;
 	using Data.Common;
+	using Data.Models;
 	using Microsoft.AspNetCore.Identity;
 	using Utilities.Constants;
 	using ViewModels.UserModels;

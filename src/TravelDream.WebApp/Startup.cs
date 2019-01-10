@@ -3,6 +3,7 @@
 	using AutoMapper;
 	using Data;
 	using Data.Common;
+	using Data.Models;
 	using Extensions;
 	using Microsoft.AspNetCore.Builder;
 	using Microsoft.AspNetCore.Identity;

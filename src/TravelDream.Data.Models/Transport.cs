@@ -9,6 +9,7 @@
 		public Transport()
 		{
 			this.Seats = new HashSet<Seat>();
+			this.SeatsTaken = new HashSet<Seat>();
 		}
 		public ICollection<Seat> Seats { get; set; }
 		public TransportType TransportType { get; set; }

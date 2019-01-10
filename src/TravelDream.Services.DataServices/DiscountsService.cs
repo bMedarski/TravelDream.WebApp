@@ -6,6 +6,7 @@
 	using Contracts;
 	using Data.Common;
 	using Data.Models;
+	using Microsoft.EntityFrameworkCore;
 	using ViewModels.DiscountModels;
 
 	public class DiscountsService:IDiscountsService
@@ -38,6 +39,12 @@
 				Name = d.Name,
 				Percent = d.Percent
 			}).ToList();
+		}
+
+		public Discount GetById(int id)
+		{
+			var ticket = this._discountRepository.All().FirstOrDefault(d => d.Id == id);
+			return ticket;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿namespace TravelDream.Services.DataServices
 {
+	using System.Collections.Generic;
 	using System.Linq;
 	using System.Threading.Tasks;
 	using Contracts;
@@ -13,11 +14,13 @@
 	{
 		private readonly IRepository<Transport> _transportRepository;
 		private readonly ICompaniesService _companiesService;
+		private readonly IRepository<Trip> _tripsService;
 
-		public TransportsService(IRepository<Transport> transportRepository, ICompaniesService companiesService)
+		public TransportsService(IRepository<Transport> transportRepository, ICompaniesService companiesService, IRepository<Trip> tripsService)
 		{
 			this._transportRepository = transportRepository;
 			this._companiesService = companiesService;
+			this._tripsService = tripsService;
 		}
 		public async Task<int> Add(InputTransportViewModel model)
 		{
@@ -67,6 +70,33 @@
 					CompanyName = s.Company.Name
 				});
 			return transports;
+		}
+		public IList<TransportViewModel> GetAllByTypeAvailable(int transportType)
+		{
+			var transportsAvailable = new List<TransportViewModel>();
+			var transportsTaken =
+				this._tripsService.All().Include(t => t.Transport).Select(t => t.Transport).ToList();
+
+			var transportationType = (TransportType)transportType;
+
+
+			var transports = this._transportRepository.All()
+				.Include(t => t.Company)
+				.Where(t => t.TransportType == transportationType && t.LastSeatNumber > 0)
+				.Select(s => new TransportViewModel()
+				{
+					Id = s.Id,
+					DesignationNumber = s.DesignationNumber,
+					CompanyName = s.Company.Name
+				}).ToList();
+			foreach (var transportViewModel in transports)
+			{
+				if (!(transportsTaken.Any(t => t.Id == transportViewModel.Id)))
+				{
+					transportsAvailable.Add(transportViewModel);
+				}
+			}
+			return transportsAvailable;
 		}
 	}
 }

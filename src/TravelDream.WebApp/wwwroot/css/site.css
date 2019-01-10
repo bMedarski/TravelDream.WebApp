@@ -118,16 +118,16 @@ a {
 	font-size: 2rem;
 	line-height: 1.5;
 	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-	border-bottom-right-radius: 1.5Rem;
-	border-bottom-left-radius: 1.5Rem;
+	border-bottom-right-radius: 1Rem;
+	border-bottom-left-radius: 1Rem;
 }
 .main {
 	border: solid 2px #545b62;
-	border-radius: 1.5Rem;
+	border-radius: 1Rem;
 }
 .top {
-	border-top-right-radius: 1.5Rem;
-	border-top-left-radius: 1.5Rem;
+	border-top-right-radius: 1Rem;
+	border-top-left-radius: 1Rem;
 }
 .editor-datetime {
 	position: relative;
@@ -250,4 +250,19 @@ a {
 	background-color: #ffc107;
 	padding: 0.3Rem;
 	border-radius: 10%;
+}
+.details {
+	padding: 1Rem;
+}
+.hr-2 {
+	height: 2px;
+}
+#ticketCount {
+	width: 4Rem;
+	text-align: right;
+	height: 1.5Rem;
+}
+.error {
+	background-color: #ee918d;
+	padding: 0.5Rem;
 }

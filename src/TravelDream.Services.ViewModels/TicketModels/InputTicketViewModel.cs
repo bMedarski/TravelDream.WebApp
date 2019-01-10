@@ -2,8 +2,9 @@
 {
 	public class InputTicketViewModel
 	{
-		public decimal Price { get; set; }
-		public string SeatNumber { get; set; }
+		public int Id { get; set; }
+		public int Discount { get; set; }
+		public string SeatType { get; set; }
 		public int Count { get; set; }
 	}
 }

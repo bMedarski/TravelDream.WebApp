@@ -7,6 +7,7 @@
 	using Microsoft.AspNetCore.Mvc;
 	using Services.DataServices.Contracts;
 	using Services.Utilities.Constants;
+	using Services.ViewModels.TicketModels;
 	using Services.ViewModels.TripModels;
 	using WebApp.Controllers;
 
@@ -73,6 +74,7 @@
 
 				// Getting all Customer data  
 				var trips = this._tripsService.GetAll();
+				trips = this.Sort(trips, "departureTime", "asc");
 
 				//Sorting  
 				trips = this.Sort(trips,sortColumn,sortColumnDirection);
@@ -80,7 +82,7 @@
 				//Search  
 				if (!string.IsNullOrEmpty(searchValue))
 				{
-					trips = trips.Where(m => m.Departure == searchValue);
+					trips = trips.Where(m => m.Departure == searchValue || m.Destination == searchValue);
 				}
 
 				//total number of rows count   
@@ -96,11 +98,27 @@
 				throw;
 			}
 		}
-
+		[AllowAnonymous]
 		public IActionResult Details(int id)
 		{
+			this.ViewData["error"] = "";
 			var trip = this._tripsService.Details(id);
 			return this.View(trip);
+		}
+
+		[HttpPost]
+		public IActionResult Details(InputTicketViewModel model)
+		{
+			var hasEnoughTickets = this._tripsService.HasEnoughTickets(model.Id, model.Count, model.SeatType);
+
+			if (!hasEnoughTickets)
+			{
+				this.ViewData["error"] = GlobalConstants.NotEnoughTicketsMessage;
+				var trip = this._tripsService.Details(model.Id);
+				return this.View(trip);
+			}
+			
+			return this.RedirectToAction("Add", "Tickets", new { area = "Travels",id=model.Id,seatType=model.SeatType,count=model.Count,discount=model.Discount });
 		}
 
 		private IQueryable<TripViewModel> Sort(IQueryable<TripViewModel> trips, string sortColumn,
@@ -165,7 +183,6 @@
 				}
 
 			}
-
 			return trips;
 		}
 	}

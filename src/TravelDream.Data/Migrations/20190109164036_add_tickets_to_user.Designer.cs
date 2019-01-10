@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelDream.Data;
 
 namespace TravelDream.Data.Migrations
 {
     [DbContext(typeof(TravelDreamDbContext))]
-    partial class TravelDreamDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190109164036_add_tickets_to_user")]
+    partial class add_tickets_to_user
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -236,13 +238,15 @@ namespace TravelDream.Data.Migrations
 
                     b.Property<string>("BuyerId");
 
-                    b.Property<decimal>("Price");
+                    b.Property<int?>("DiscountId");
 
                     b.Property<int?>("SeatId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BuyerId");
+
+                    b.HasIndex("DiscountId");
 
                     b.HasIndex("SeatId");
 
@@ -423,6 +427,10 @@ namespace TravelDream.Data.Migrations
                     b.HasOne("TravelDream.Data.Models.User", "Buyer")
                         .WithMany("Tickets")
                         .HasForeignKey("BuyerId");
+
+                    b.HasOne("TravelDream.Data.Models.Discount", "Discount")
+                        .WithMany()
+                        .HasForeignKey("DiscountId");
 
                     b.HasOne("TravelDream.Data.Models.Seat", "Seat")
                         .WithMany()

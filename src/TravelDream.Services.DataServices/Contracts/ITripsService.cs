@@ -11,5 +11,7 @@
 		IQueryable<TripViewModel> GetAll();
 		Trip GetById(int id);
 		TripDetailedView Details(int id);
+		bool HasEnoughTickets(int id, int ticketsCount, string ticketsType);
+		void DropSeat(int id, Seat seat,int count);
 	}
 }

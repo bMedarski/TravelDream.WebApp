@@ -1,6 +1,7 @@
 ﻿namespace TravelDream.Services.DataServices
 {
 	using System.Collections.Generic;
+	using System.Linq;
 	using System.Threading.Tasks;
 	using Contracts;
 	using Data.Common;
@@ -38,9 +39,16 @@
 			}
 			
 			await this._seatsRepository.AddRangeAsync(seats);
-			await this._seatsRepository.SaveChangesAsync();
-			//TODO return
-			return 0;
+			return await this._seatsRepository.SaveChangesAsync();;
+		}
+		public IQueryable<SeatTypesViewModel> GetAll()
+		{
+			var seatTypes = this._seatsRepository.All().Select(s => new SeatTypesViewModel()
+			{
+				SeatType = s.Type.ToString(),
+				SeatPrice = s.Price
+			});
+			return seatTypes;
 		}
 	}
 }

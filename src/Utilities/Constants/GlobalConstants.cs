@@ -17,5 +17,6 @@
 		public const string SuccessfullyAddedSeatsMessage = " seats were added successfully";
 
 		public const string SuccessMessageKey = "Success";
+		public const string NotEnoughTicketsMessage = "Not enough tickets";
 	}
 }

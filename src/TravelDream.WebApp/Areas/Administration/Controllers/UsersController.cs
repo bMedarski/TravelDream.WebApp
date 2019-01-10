@@ -1,10 +1,7 @@
 ﻿namespace TravelDream.WebApp.Areas.Administration.Controllers
 {
-	using System.Threading;
 	using System.Threading.Tasks;
-	using Data.Common;
-	using Filters;
-	using Microsoft.AspNetCore.Authorization;
+	using Data.Models;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 	using Services.DataServices.Contracts;

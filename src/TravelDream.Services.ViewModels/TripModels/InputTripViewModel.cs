@@ -30,6 +30,7 @@
 		public DateTime DepartureTime { get; set; }
 
 		[Display(Name = "Arrival Time")]
+		[DateGreaterThan("DepartureTime")]
 		public DateTime ArrivalTime { get; set; }
 
 

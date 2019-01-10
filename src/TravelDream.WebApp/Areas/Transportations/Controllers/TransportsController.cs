@@ -51,5 +51,11 @@
 		    var transports = this._transportsService.GetAllByType(transportType).ToList();
 		    return this.Json(transports);
 	    }
+	    [HttpPost]
+	    public JsonResult GetAllByTypeAvailable(int transportType)
+	    {
+		    var transports = this._transportsService.GetAllByTypeAvailable(transportType);
+		    return this.Json(transports);
+	    }
     }
 }

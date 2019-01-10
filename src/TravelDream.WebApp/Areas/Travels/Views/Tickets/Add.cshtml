@@ -1,7 +1,24 @@
-﻿
+﻿@using TravelDream.Services.Utilities.Constants
+@model List<TravelDream.Data.Models.Ticket>
+
 @{
-    ViewData["Title"] = "Add";
+	ViewData["Title"] = "Details";
 }
-
-<h2>Add</h2>
-
+<main class="mt-5 w-50 mx-auto main bg-white">
+	<div class="details">
+		<h3 class="">
+			Tickets bought:@Model.Count
+		</h3>
+		<hr class="hr-2 bg-bet" />
+		@foreach (var ticket in @Model)
+		{
+			<p>
+				Seat number: @ticket.Seat.Number - Price: @ticket.Price.ToString("F2")<span>&euro;</span>
+			</p>
+		}
+		<hr class="hr-2 bg-bet" />
+		<p>
+			Total: @Model.Sum(t=>t.Price).ToString("F2")<span>&euro;</span>
+		</p>
+	</div>
+</main>

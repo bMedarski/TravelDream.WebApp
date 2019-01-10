@@ -1,7 +1,80 @@
-﻿
+﻿@using TravelDream.Services.Utilities.Constants
+@model TravelDream.Services.ViewModels.TripModels.TripDetailedView
+
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
+<main class="mt-5 w-50 mx-auto main bg-white">
+	<div class="details">
+		<p class="">
+			@Model.TransportType ride - <span class="font-weight-bold">@Model.CompanyName</span>
+		</p>
+		<hr class="hr-2 bg-bet" />
+		<p>
+			Departure : <span class="font-weight-bold">@Model.DepartureCity</span>,<span class="font-weight-bold">@Model.DepartureCountry</span> at <span class="font-weight-bold">@Model.DepartureTime</span>
+		</p>
+		<p>
+			Arriving : <span class="font-weight-bold">@Model.DestinationCity</span>,<span class="font-weight-bold">@Model.DestinationCountry</span> at <span class="font-weight-bold">@Model.ArrivalTime</span>
+		</p>
+		<hr class="hr-2 bg-bet" />
+		@if (this.User.Identity.IsAuthenticated)
+		{
+			<p>
+				Available tickets:
+			</p>
+			<form class="text-center font-weight-bold" method="post" asp-area="@GlobalConstants.TravelsAreaText" asp-action="Details" asp-controller="Trips">
+				<input type="hidden" name="id" value="@Model.Id" />
+				<div class="container">
+					<div class="row d-flex justify-content-between">
+						<p class="align-middle">
+							<select id="seatTypesMenu" name="seatType">
+								@foreach (var item in @Model.SeatTypes)
+								{
+									<option value="@item.SeatType">@item.SeatType @item.SeatPrice<span>&euro;</span> - available: <span>@item.SeatCount</span></option>
+								}
+							</select>
+						</p>
+						<div>
+							<input type="number" name="Count" value="0" id="ticketCount" size="3" maxlength="5" /><label for="ticketCount">Tickets</label>
+						</div>
 
-<h2>Details</h2>
+					</div>
+				</div>
+				@if (this.ViewData["error"].ToString().Length > 0)
+				{
+					<p class="error">@this.ViewData["error"]</p>
+				}
 
+				<hr class="hr-2 bg-bet" />
+				<p>
+					Type of the ticket(s): <select name="discount" id="discountsMenu"></select>
+				</p>
+				<hr class="hr-2 bg-bet" />
+				<div class="container">
+					<div class="row d-flex justify-content-between">
+						<a asp-action="Index" asp-controller="Home" asp-area="" id="back" class="btn bg-bet col-3" value="Back">Back</a>
+						<input type="submit" id="btn-add-game" class="btn bg-bet col-3" value="Buy" />
+					</div>
+				</div>
+			</form>
+		}
+	</div>
+
+</main>
+@section Scripts {
+	<script>
+		$(document).ready(function() {
+			$.ajax({
+				url: "/@GlobalConstants.TravelsAreaText/Discounts/GetAll",
+				type: "GET",
+				dataType: "json",
+				success: function(discounts) {
+					$.each(discounts,
+						function(index, value) {
+							$('#discountsMenu').append('<option value="' + value.id + '">' + value.name + ' - ' + (100-(value.percent*100)) + '%' +'</option>');
+						});
+				}
+			});
+		});
+	</script>
+}
