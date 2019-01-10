@@ -35,7 +35,5 @@
 		[DateGreaterThan("DepartureTime")]
 		[DataType(DataType.DateTime)]
 		public DateTime ArrivalTime { get; set; }
-
-
 	}
 }

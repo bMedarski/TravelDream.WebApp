@@ -14,6 +14,7 @@
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.DependencyInjection;
+	using Middleware;
 	using Services.DataServices;
 	using Services.DataServices.Contracts;
 	using Services.ViewModels.UserModels;
@@ -106,6 +107,7 @@
 				//app.UseStatusCodePagesWithReExecute("/Errors/Status/{0}");
 				app.UseHsts();
 			}
+
 			app.UseSeeder();
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
